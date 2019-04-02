@@ -1,0 +1,14 @@
+firstName: Elias
+lastName: Rhouzlane
+bio: 
+  fr: "Intéressé par de multiples champs : objet, céramique, architecture, animation, culture, édition, mode, jeu vidéo... Je recherche à allier mon profil scientifique pour des expérimentations et productions tangibles, éthiques et créatives."
+  en: Currently focusing on Interaction and Object Design exploring the interaction of objects, people, art, technology and science using form and code with a mix of analog and digital materials.
+social:
+  - name: GitHub
+    src: https://github.com/nestarz
+  - name: Linkedin
+    src: https://fr.linkedin.com/in/elias-rhouzlane-56070197
+  - name: Instagram
+    src: https://instagram.com/eliasrhouzlane
+  - name: Twitter
+    src: https://twitter.com/nestarz
