@@ -1,0 +1,29 @@
+{
+  "version": "0.1.0",
+  "name": "gridsome-transformer-screenshot",
+  "description": "Gridsome transformer plugin that uses AWS Lambda to take screenshots of websites",
+  "license": "MIT",
+  "main": "index.js",
+  "keywords": [
+    "gridsome",
+    "gridsome-plugin",
+    "gridsome-transformer",
+    "screenshot"
+  ],
+  "dependencies": {
+    "axios": "^0.18.0",
+    "better-queue": "^3.8.10"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "babel-preset-gatsby-package": "^0.1.4",
+    "cross-env": "^5.1.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=8"
+  }
+}

@@ -1,0 +1,15 @@
+categoryName: Tutorials
+list:
+  - name: "Tutoriel : Les shaders en GLSL"
+    url: http://sdz.tdct.org/sdz/les-shaders-en-glsl.html#LesshadersenGLSL
+    tags:
+        - glsl
+
+  - name: "An Intro to regl for Data Visualization"
+    url: https://vallandingham.me/regl_intro.html
+    tags:
+        - glsl
+        - webgl
+        - regl
+        - data
+        - visualisation

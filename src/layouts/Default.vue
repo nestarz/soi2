@@ -6,6 +6,7 @@
       </strong>
       <nav class="nav">
         <g-link class="nav__link" to="/">Home</g-link>
+        <g-link class="nav__link" to="/ressources">Ressources</g-link>
         <g-link class="nav__link" to="/about">About</g-link>
         <a class="nav__link" href="#" @click="() => $store.commit('toggleLang')">{{ $store.state.lang.name }}</a>
       </nav>
@@ -35,7 +36,8 @@ export default {
 
 <style>
 .layout {
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: 0;
   padding: 1em;
 }
 

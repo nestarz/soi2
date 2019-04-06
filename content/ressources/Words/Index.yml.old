@@ -1,0 +1,5 @@
+categoryName: Words
+list:
+  - name: camelCase
+  - name: kebabCase
+  - name: SEO

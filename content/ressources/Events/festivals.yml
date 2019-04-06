@@ -1,0 +1,82 @@
+categoryName: Festivals
+list:
+  - name: Eyeo Festival
+    url: http://eyeofestival.com/
+    location:
+      city: Minneapolis
+      country: USA
+    description: Since 2011, the annual Eyeo Festival brings together a community of people drawn to the intersection of art, data and creative technology
+    tags:
+      - art
+      - data
+      - digital
+
+  - name: GROW
+    url: https://www.grow.paris/fr/infos/
+    location:
+      city: Paris
+      country: France
+    description: Rendez-vous parisien (et plus seulement!) des codeurs créatifs. GROW cherche à ouvrir les possibles de la création numérique.
+    tags:
+      - art
+      - data
+      - digital
+
+  - name: EvoMUSART
+    url: http://www.evostar.org/2019/cfp_evomusart.php
+    location:
+      city: Leipzig
+      country: Germany
+    description: "The use of Computational Intelligence for the development of artistic systems is a recent, exciting and significant area of research. There is a growing interest in the application of these techniques in fields such as: visual art and music generation, analysis, and interpretation; sound synthesis; architecture; video; poetry; design; and other creative tasks."
+    tags:
+      - art
+      - data
+      - digital
+      - architecture
+      - sound
+      - video
+      - design
+      - poetry
+      - generative
+
+  - name: NIPS Machine Learning for Creativity and Design Workshop
+    url: https://nips.cc/Conferences/2018/Schedule?showEvent=10924
+    location:
+      city: Montréal
+      country: Canada
+    description: "Over the past few years, generative machine learning and machine creativity have continued grow and attract a wider audience to machine learning. Generative models enable new types of media creation across images, music, and text - including recent advances such as sketch-rnn and the Universal Music Translation Network. This one-day workshop broadly explores issues in the applications of machine learning to creativity and design. We will look at algorithms for generation and creation of new media and new designs, engaging researchers building the next generation of generative models (GANs, RL, etc). We investigate the social and cultural impact of these new models, engaging researchers from HCI/UX communities and those using machine learning to develop new creative tools. In addition to covering the technical advances, we also address the ethical concerns ranging from the use of biased datasets to building tools for better “DeepFakes”. Finally, we’ll hear from some of the artists and musicians who are adopting machine learning including deep learning and reinforcement learning as part of their own artistic process. We aim to balance the technical issues and challenges of applying the latest generative models to creativity and design with philosophical and cultural issues that surround this area of research."
+    tags:
+      - art
+      - data
+      - digital
+      - architecture
+      - sound
+      - video
+      - design
+      - poetry
+      - generative
+      - neural network
+      - machine learning
+      - music
+      - design
+
+  - name: ECCV 2018 Workshop on Computer Vision for Fashion, Art and Design
+    url: https://sites.google.com/view/eccvfashion/home
+    location:
+      city: Munich
+      country: Germany
+    description: "Creative domains render a big part of modern society, having a strong influence on economy and cultural life. Much effort within creative domains, such as fashion, art and design, centers around the creation, consumption and analytics of creative visual content. In recent years, there has been an explosion of research in applying machine learning and computer vision algorithms to various aspects of the creative domains including generating, analyzing and processing visual content. This ever-increasing interest is most evident in two important research trends: (1) Computer Vision for Fashion and (2) Visual Content Generation for Creative Applications."
+    tags:
+      - art
+      - data
+      - digital
+      - architecture
+      - sound
+      - video
+      - design
+      - poetry
+      - generative
+      - neural network
+      - machine learning
+      - music
+      - design

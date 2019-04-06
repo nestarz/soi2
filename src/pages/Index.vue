@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout class="index">
     <p>{{ bio }}</p>
 
     <p class="home-links">
@@ -11,14 +11,22 @@
         rel="noopener"
       >{{ item.name }}</a>
     </p>
+
+    <h2>{{ $store.state.lang.slug == "fr" ? "Dernières écoutes" : "Last listened" }}</h2>
+    <listen />
   </Layout>
 </template>
 
 <script>
 import author from "~/data/author.yml";
+import Listen from "~/components/Listen.vue";
+
 export default {
   metaInfo: {
     title: "Index"
+  },
+  components: {
+    Listen,
   },
   data() {
     return {
@@ -33,8 +41,10 @@ export default {
 };
 </script>
 
-<style>
-.home-links a {
-  margin-right: 1rem;
+<style lang="scss">
+.index {
+  .home-links a {
+    margin-right: 1rem;
+  }
 }
 </style>
