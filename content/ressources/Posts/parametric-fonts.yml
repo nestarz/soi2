@@ -1,0 +1,14 @@
+category: Posts
+collection:
+- name: Spectral, the first parametric Google font by Prototypo
+  url: https://spectral.prototypo.io/
+- name: "What\u2019s the Difference Between Variable and Parametric Fonts?"
+  url: ttps://eyeondesign.aiga.org/parametric-and-variable-typeface-systems-shape-shifters-for-letterforms/
+- name: Axis-Praxis is a website for playing with OpenType Variable Fonts
+  url: https://www.axis-praxis.org/
+name: Parametric Fonts
+tags:
+- parametric
+- typography
+- variable font
+- graphism

@@ -34,7 +34,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .layout {
   max-width: 1000px;
   margin: 0;

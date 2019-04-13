@@ -1,11 +1,11 @@
 const jsYaml = require('js-yaml')
-const axios = require(`axios`)
+const fetch = require("node-fetch");
+const { getMetadata, metadataRuleSets } = require('page-metadata-parser');
+const domino = require('domino');
 
 const {
-  GraphQLString,
-} = require('gridsome/graphql')
-
-const SCREENSHOT_ENDPOINT = `https://h7iqvn4842.execute-api.us-east-2.amazonaws.com/prod/screenshot`
+  MetadataType,
+} = require('./lib/types/MetadataType')
 
 class ScreenshotTransformer {
     static mimeTypes () {
@@ -14,7 +14,6 @@ class ScreenshotTransformer {
 
     parse (content) {
       const data = jsYaml.load(content)
-  
       const fields = typeof data !== 'object' || Array.isArray(data)
         ? { data }
         : data
@@ -23,15 +22,24 @@ class ScreenshotTransformer {
   
     extendNodeType ({ graphql }) {
       return {
-        screenshot: {
-          type: GraphQLString,
+        metadata: {
+          type: MetadataType,
           resolve: async (node) => {
-            console.log("ok", node.fields, "fin");
-            const url = node.fields.list[0].url;
-            const screenshotResponse = await axios.post(SCREENSHOT_ENDPOINT, { url });
-            return screenshotResponse.data.url;
-          }
-        }
+            try {
+              const url = node.fields.url;
+              const response = await fetch(url);
+              const html = await response.text();
+              const doc = domino.createWindow(html).document;
+              const metadata = getMetadata(doc, url);
+              console.log(metadata);
+              return metadata;
+            } catch (err) {
+              return {
+                image: '',
+              };
+            }
+          },
+        },
       }
     }
   }

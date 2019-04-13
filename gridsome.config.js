@@ -11,7 +11,6 @@ module.exports = {
     lastName: "Rhouzlane",
   },
   plugins: [
-    '@gridsome/transformer-yaml',
     {
       use: '@gridsome/source-filesystem',
       options: {

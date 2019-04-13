@@ -3,5 +3,5 @@ export default {
   "siteName": "Gridsome",
   "titleTemplate": "%s - Gridsome",
   "siteDescription": "",
-  "version": "0.5.5"
+  "version": "0.5.7"
 }
