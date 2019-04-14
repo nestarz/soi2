@@ -5,14 +5,18 @@
         <g-image v-if="mainScreenshot" class="image" :src="mainScreenshot"/>
       </div>
       <div class="title">
-        <a :href="url">{{ name }} {{ alias }}</a>
+        <a :href="url">
+          <span>{{ name }}</span>
+          <span class="alias" v-if="alias"> ({{ alias }})</span>
+        </a>
+        <div class="location" v-if="location">{{ locationFormatted }}</div>
         <div v-for="author in authors" :key="author">{{ author }}</div>
       </div>
     </div>
-    <div class="main" v-if="full">
-      <div class="description">{{ description }}</div>
+    <div class="main">
+      <div class="description" v-if="full">{{ description.replace(/^(.{135}[^\s]*).*/, "$1") }}...</div>
       <div class="tags">
-        <span>{{ `${category} ` }}</span>
+        <span class="category">{{ `${category} ` }}</span>
         <span v-for="tag in tags" :key="tag">{{ `${tag} ` }}</span>
       </div>
     </div>
@@ -37,6 +41,10 @@ export default {
     slug: String
   },
   computed: {
+    locationFormatted() {
+      const full = this.location.city && this.location.country;
+      return `${this.location.city}${full ? ", " : ""}${this.location.country}`;
+    },
     mainScreenshot() {
       return this.screenshot
         ? this.screenshot
@@ -48,44 +56,54 @@ export default {
 
 <style lang="scss" scoped>
 .bookmark {
-  display: grid;
-  grid-template-columns: 1fr;
-
   &.full {
+    display: grid;
+    grid-template-columns: 1fr;
     grid-template-columns: minmax(0, 0.3fr) minmax(0, 0.7fr);
     grid-gap: 0 1em;
   }
 
   .header {
-    display: flex;
-    flex-direction: column;
+    .alias {
+      font-size: 70%;
+      font-style: italic;
+    }
+
+    .location {
+      font-size: 70%;
+      font-style: italic;
+    }
 
     .container-image {
+      display: grid;
       background-color: #fafafa;
-      height: 100%;
 
-      .image {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
+      img {
+        position: relative;
+
+        &:after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: #fafafa;
+          content: " ";
+        }
       }
     }
   }
 
   .main {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-
     .description {
-      display: grid;
-      grid-gap: 0.5em;
+      word-break: break-word;
+      margin-bottom: 1em;
     }
 
     .tags {
       color: var(--link-color);
-      margin-top: 1em;
+      font-size: 70%;
+      text-transform: lowercase;
     }
   }
 }

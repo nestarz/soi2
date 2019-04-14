@@ -5,10 +5,14 @@
         <g-link to="/">{{ fullName }}</g-link>
       </strong>
       <nav class="nav">
-        <g-link class="nav__link" to="/">Home</g-link>
-        <g-link class="nav__link" to="/ressources">Ressources</g-link>
-        <g-link class="nav__link" to="/about">About</g-link>
-        <a class="nav__link" href="#" @click="() => $store.commit('toggleLang')">{{ $store.state.lang.name }}</a>
+        <g-link class="nav__link" to="/">{{ locale.home }}</g-link>
+        <g-link class="nav__link" to="/ressources">{{ locale.ressources }}</g-link>
+        <g-link class="nav__link" to="/about">{{ locale.about }}</g-link>
+        <a
+          class="nav__link"
+          href="#"
+          @click="() => $store.commit('toggleLang')"
+        >{{ $store.state.lang.name }}</a>
       </nav>
     </header>
     <slot/>
@@ -24,14 +28,32 @@ query {
 </static-query>
 
 <script>
-import author from '~/data/author.yml'
+import author from "~/data/author.yml";
+
 export default {
   data() {
     return {
-      fullName: `${author.firstName} ${author.lastName}`,
+      fullName: `${author.firstName} ${author.lastName}`
+    };
+  },
+  computed: {
+    locale() {
+      const translations = {
+        fr: {
+          home: "Accueil",
+          ressources: "Ressources",
+          about: "À propos",
+        },
+        en: {
+          home: "Home",
+          ressources: "Ressources",
+          about: "About",
+        }
+      };
+      return translations[this.$store.state.lang.slug];
     }
   }
-}
+};
 </script>
 
 <style scoped>

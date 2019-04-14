@@ -57,16 +57,15 @@ export default {
 <style lang="scss" scoped>
 .nav {
   .tags {
-    display: flex;
-    flex-wrap: wrap;
+    columns: 7em auto;
     list-style: none;
     margin: 0;
-    margin-left: -1em;
 
     .tag {
-      margin: 0 1em;
+      margin: 0;
       cursor: pointer;
-
+      border-bottom: 1px solid black;
+      
       &.active {
         color: var(--link-color);
         text-decoration: underline;
