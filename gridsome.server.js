@@ -6,7 +6,11 @@ const jsYaml = require("js-yaml");
 const slugify = require("@sindresorhus/slugify");
 
 const makeScreenshot = async (urls, paths) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    ignoreHTTPSErrors: true,
+    headless: true,
+    args: [ '--enable-features=NetworkService' ]
+  });
   await Promise.all(
     urls.map(async (url, index) => {
       const savePath = paths[index];

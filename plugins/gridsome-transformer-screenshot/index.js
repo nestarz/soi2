@@ -1,11 +1,5 @@
 const jsYaml = require('js-yaml')
-const fetch = require("node-fetch");
-const { getMetadata, metadataRuleSets } = require('page-metadata-parser');
-const domino = require('domino');
-
-const {
-  MetadataType,
-} = require('./lib/types/MetadataType')
+const { imageType } = require("gridsome/lib/graphql/types/image");
 
 class ScreenshotTransformer {
     static mimeTypes () {
@@ -22,23 +16,32 @@ class ScreenshotTransformer {
   
     extendNodeType ({ graphql }) {
       return {
-        metadata: {
-          type: MetadataType,
-          resolve: async (node) => {
+        screenshot: {
+          type: imageType.type,
+          args: imageType.args,
+          async resolve(node, args, context, info) {
+            const value = path.join(screenshotFolder, `${node.slug}.png`);
+    
             try {
-              const url = node.fields.url;
-              const response = await fetch(url);
-              const html = await response.text();
-              const doc = domino.createWindow(html).document;
-              const metadata = getMetadata(doc, url);
-              console.log(metadata);
-              return metadata;
+              result = await context.queue.add(value, args);
             } catch (err) {
-              return {
-                image: '',
-              };
+              return null;
             }
-          },
+    
+            if (result.isUrl) {
+              return result.src;
+            }
+    
+            return {
+              type: result.type,
+              mimeType: result.mimeType,
+              src: result.src,
+              size: result.size,
+              sizes: result.sizes,
+              srcset: result.srcset,
+              dataUri: result.dataUri
+            };
+          }
         },
       }
     }
