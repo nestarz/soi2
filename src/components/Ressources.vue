@@ -7,8 +7,9 @@
           href="#"
           @click="full = !full"
         >{{ locale.display }} {{ full ? locale.basic : locale.full }}</a>
+        <g-link to="/ressources/add">{{ locale.add }}</g-link>
         <div class="search-wrapper">
-          <input type="text" v-model="search" placeholder="Search title...">
+          <input type="text" :placeholder="`${locale.search_title}...`">
         </div>
       </div>
       <div class="category" :class="{ full }">
@@ -22,45 +23,22 @@
           :authors="node.authors"
           :location="node.location"
           :tags="node.tags"
-          :slug="node.fileInfo.name"
-          :screenshot="node.metadata ? node.metadata.image ? node.metadata.image : '' : ''"
+          :slug="node.name"
+          :screenshot="node.screenshot"
           v-for="{ node } in bookmarks"
           :key="node.id"
         />
+        <slot></slot>
       </div>
     </div>
   </div>
 </template>
 
-<static-query>
-query Ressources {
-  ressources: allRessources(perPage: 1000, sortBy: "category", order: ASC) {
-    edges {
-      node {
-        fileInfo {
-          name
-        }
-        category
-        name
-        alias
-        description
-        url
-        authors
-        tags
-        location {
-          city
-          country
-        }
-      }
-    }
-  }
-}
-</static-query>
-
 <script>
 import author from "~/data/author.yml";
 import MyBookmark from "~/components/Bookmark.vue";
 import MyTags from "~/components/Tags.vue";
+import { Pager } from 'gridsome';
 
 function isSuperset(set, subset) {
   for (var elem of subset) {
@@ -73,8 +51,12 @@ function isSuperset(set, subset) {
 
 export default {
   components: {
+    Pager,
     MyBookmark,
     MyTags
+  },
+  props: {
+    ressources: Array,
   },
   data() {
     return {
@@ -84,7 +66,7 @@ export default {
   },
   computed: {
     bookmarks() {
-      return this.$static.ressources.edges.filter(({ node }) =>
+      return this.ressources.filter(({ node }) =>
         isSuperset(new Set(node.tags), new Set(this.selectedTags))
       );
     },
@@ -97,13 +79,17 @@ export default {
           display: "Affichage",
           basic: "Basique",
           full: "Complet",
-          filters: "Filtres"
+          filters: "Filtres",
+          search_title: "Rechercher",
+          add: "Ajouter"
         },
         en: {
           display: "Display",
           basic: "Basic",
           full: "Full",
-          filters: "Filters"
+          filters: "Filters",
+          search_title: "Search title",
+          add: "Add"
         }
       };
       return translations[this.$store.state.lang.slug];

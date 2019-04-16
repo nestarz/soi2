@@ -9,17 +9,5 @@ module.exports = {
   author: {
     firstName: "Elias",
     lastName: "Rhouzlane",
-  },
-  plugins: [
-    {
-      use: '@gridsome/source-filesystem',
-      options: {
-        path: [
-          'content/ressources/**/*.yaml',
-          'content/ressources/**/*.yml'
-        ],
-        typeName: 'Ressources',
-      }
-    },
-  ]
+  }
 }

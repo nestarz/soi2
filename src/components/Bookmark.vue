@@ -2,12 +2,18 @@
   <div class="bookmark" :class="{ full }">
     <div class="header">
       <div class="container-image">
-        <g-image v-if="mainScreenshot" class="image" :src="mainScreenshot"/>
+        <g-image
+          class="image"
+          quality="20"
+          blur="1"
+          width="20"
+          :src="screenshot"
+        />
       </div>
       <div class="title">
         <a :href="url">
           <span>{{ name }}</span>
-          <span class="alias" v-if="alias"> ({{ alias }})</span>
+          <span class="alias" v-if="alias">({{ alias }})</span>
         </a>
         <div class="location" v-if="location">{{ locationFormatted }}</div>
         <div v-for="author in authors" :key="author">{{ author }}</div>
@@ -38,17 +44,13 @@ export default {
     location: Object,
     tags: Array,
     screenshot: String,
-    slug: String
+    slug: String,
+    index: Number
   },
   computed: {
     locationFormatted() {
       const full = this.location.city && this.location.country;
       return `${this.location.city}${full ? ", " : ""}${this.location.country}`;
-    },
-    mainScreenshot() {
-      return this.screenshot
-        ? this.screenshot
-        : `./screenshots/${this.slug}.png`;
     }
   }
 };
