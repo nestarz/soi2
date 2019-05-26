@@ -1,20 +1,9 @@
 <template>
-  <Layout class="index">
-    <p>{{ bio }}</p>
-
-    <p class="home-links">
-      <a
-        v-for="item in social"
-        :key="item.name"
-        :href="item.src"
-        target="_blank"
-        rel="noopener"
-      >{{ item.name }}</a>
-    </p>
-
-    <h2>{{ $store.state.lang.slug == "fr" ? "Dernières écoutes" : "Last listened" }}</h2>
-    <listen />
-  </Layout>
+  <div class="index">
+    <div class="projects"></div>
+    <div class="name">Elias Rhouzlane</div>
+    <div class="ressources"></div>
+  </div>
 </template>
 
 <script>
@@ -26,7 +15,7 @@ export default {
     title: "Index"
   },
   components: {
-    Listen,
+    Listen
   },
   data() {
     return {
@@ -36,15 +25,20 @@ export default {
   computed: {
     bio() {
       return author.bio[this.$store.state.lang.slug];
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .index {
-  .home-links a {
-    margin-right: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+
+  .name {
+    padding: 1em;
   }
 }
 </style>

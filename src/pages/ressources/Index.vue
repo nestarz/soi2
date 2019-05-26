@@ -8,12 +8,12 @@
 
 
 <page-query>
-query Ressources ($page: Int) {
+query Ressources {
   ressources: allRessources(
     sortBy: "category", 
     order: ASC, 
     perPage: 1000, 
-    page: $page,
+    page: 1,
   ) @paginate {
     pageInfo {
       totalPages

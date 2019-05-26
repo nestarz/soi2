@@ -4,7 +4,7 @@
       <strong>
         <g-link to="/">{{ fullName }}</g-link>
       </strong>
-      <nav class="nav">
+      <nav class="nav" v-if="false">
         <g-link class="nav__link" to="/">{{ locale.home }}</g-link>
         <g-link class="nav__link" to="/ressources">{{ locale.ressources }}</g-link>
         <g-link class="nav__link" to="/about">{{ locale.about }}</g-link>
@@ -57,17 +57,12 @@ export default {
 </script>
 
 <style scoped>
-.layout {
-  max-width: 1000px;
-  margin: 0;
-  padding: 1em;
-}
-
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  padding: 1em 1em 0 1em;
 }
 
 .nav__link {
