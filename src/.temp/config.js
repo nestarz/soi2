@@ -1,7 +1,7 @@
 export default {
-  "siteUrl": "",
+  "siteUrl": "https://eliasrhouzlane.com",
   "siteName": "Gridsome",
-  "titleTemplate": "%s - Gridsome",
+  "titleTemplate": "%s | Elias Rhouzlane",
   "siteDescription": "",
   "version": "0.5.7"
 }

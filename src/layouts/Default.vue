@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <header class="header">
+    <!-- <header class="header">
       <strong>
         <g-link to="/">{{ fullName }}</g-link>
       </strong>
@@ -14,7 +14,7 @@
           @click="() => $store.commit('toggleLang')"
         >{{ $store.state.lang.name }}</a>
       </nav>
-    </header>
+    </header> -->
     <slot/>
   </div>
 </template>

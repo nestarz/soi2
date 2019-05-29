@@ -17,18 +17,19 @@ body {
   transition: color 0.6s, background-color 0.6s;
   margin: 0;
   padding: 0;
-  line-height: 1.5;
+  line-height: normal;
 }
 
-h2, h3 {
+h1, h2, h3 {
   font-size: 1em;
   font-weight: normal;
-  margin-top: 0;
+  margin: 0;
   color: var(--link-color);
 }
 
 a:not(.button) {
   color: var(--link-color);
+  text-decoration: none;
   transition: opacity 0.2s;
   &:hover {
     opacity: 0.8;

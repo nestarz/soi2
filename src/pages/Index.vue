@@ -2,13 +2,15 @@
   <div class="index">
     <div class="projects"></div>
     <div class="name">Elias Rhouzlane</div>
-    <div class="ressources"></div>
+    <div class="ressources">
+      <g-link to="/ressources">Ressources</g-link>
+    </div>
   </div>
 </template>
 
 <script>
 import author from "~/data/author.yml";
-import Listen from "~/components/Listen.vue";
+import Listen from "~/components/listen.vue";
 
 export default {
   metaInfo: {

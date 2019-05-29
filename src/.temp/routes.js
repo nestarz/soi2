@@ -26,7 +26,7 @@ export default [
   {
     name: "ressources",
     path: "/ressources/:page(\\d+)?",
-    component: () => import(/* webpackChunkName: "component--ressources" */ "/Users/elias/projects/soi/src/pages/ressources/Index.vue")
+    component: () => import(/* webpackChunkName: "component--ressources" */ "/Users/elias/projects/soi/src/pages/ressources/index.vue")
   },
   {
     name: "*",

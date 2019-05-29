@@ -1,79 +1,65 @@
 <template>
-  <nav class="nav">
-    <ul class="tags">
-      <li
-        v-for="[tag, count] in set"
-        :key="tag"
-        class="tag"
-        :class="{active: selected.includes(tag)}"
-        @click="select(tag)"
-      >
-        <span>{{ tag }}</span>
-        <span class="count">{{ count }}</span>
-      </li>
-    </ul>
+  <nav class="tags">
+    <li
+      v-for="(count, tag) in tags"
+      :key="tag"
+      @click="select(tag)"
+      class="tag"
+      :class="{ active : selected.has(tag) }"
+    >
+      <span class="tag">
+        {{ tag }}&nbsp;<span class="count">{{ count }}</span>
+      </span>
+    </li>
   </nav>
 </template>
-
-<static-query>
-query Tags {
-  ressources: allRessources(perPage: 1000) {
-    edges {
-      node {
-        tags
-      }
-    }
-  }
-}
-</static-query>
 
 <script>
 export default {
   props: {
-    tags: Array,
-    selected: Array
+    tags: Object
+  },
+  data() {
+    return {
+      selected: new Map()
+    };
   },
   methods: {
     select(tag) {
-      console.log(tag, this.selected);
-      this.$emit("select", tag);
-    }
-  },
-  computed: {
-    set() {
-      return Array.from(
-        this.tags
-          .sort()
-          .reduce(
-            (acc, val) => acc.set(val, 1 + (acc.get(val) || 0)),
-            new Map()
-          )
-      );
+      this.selected.has(tag)
+        ? this.selected.delete(tag)
+        : this.selected.set(tag, null);
+      this.$emit("select", Array.from(this.selected.keys()));
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.nav {
-  .tags {
-    columns: 7em auto;
-    list-style: none;
+.tags {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  .tag {
     margin: 0;
+    cursor: pointer;
+    flex: 0;
+    flex-basis: 50%;
+    max-width: 50%;
+    align-self: flex-start;
 
-    .tag {
-      margin: 0;
-      cursor: pointer;
-      border-bottom: 1px solid black;
-      
-      &.active {
-        color: var(--link-color);
-        text-decoration: underline;
-      }
+    &.active {
+      color: var(--link-color);
+      color: rgb(255, 62, 81);
+      text-decoration: underline;
+    }
 
-      .count {
-        font-size: 60%;
-      }
+    .count {
+      font-size: 60%;
     }
   }
 }

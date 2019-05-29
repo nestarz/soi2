@@ -2,17 +2,11 @@
   <div class="bookmark" :class="{ full }">
     <div class="header">
       <div class="container-image">
-        <g-image
-          class="image"
-          quality="20"
-          blur="1"
-          width="20"
-          :src="screenshot"
-        />
+        <g-image class="image" quality="20" blur="1" width="20" :src="screenshot"/>
       </div>
       <div class="title">
         <a :href="url">
-          <span>{{ name }}</span>
+          <span class="name">{{ name }}</span>
           <span class="alias" v-if="alias">({{ alias }})</span>
         </a>
         <div class="location" v-if="location">{{ locationFormatted }}</div>
@@ -20,7 +14,7 @@
       </div>
     </div>
     <div class="main">
-      <div class="description" v-if="full">{{ description.replace(/^(.{135}[^\s]*).*/, "$1") }}...</div>
+      <div class="description">{{ description.replace(/^(.{135}[^\s]*).*/, "$1") }}...</div>
       <div class="tags">
         <span class="category">{{ `${category} ` }}</span>
         <span v-for="tag in tags" :key="tag">{{ `${tag} ` }}</span>
@@ -66,19 +60,31 @@ export default {
   }
 
   .header {
-    .alias {
-      font-size: 70%;
-      font-style: italic;
-    }
+    margin-bottom: 5px;
 
-    .location {
-      font-size: 70%;
-      font-style: italic;
-    }
+    .title {
+      margin-top: 10px;
 
+      a {
+        color: rgb(255, 62, 81);
+        .name {
+          background: ghostwhite;
+        }
+      }
+
+      .alias {
+        font-size: 70%;
+        font-style: italic;
+      }
+
+      .location {
+        font-size: 70%;
+        font-style: italic;
+      }
+    }
     .container-image {
       display: grid;
-      background-color: #fafafa;
+      background-color: #eee;
 
       img {
         position: relative;
@@ -99,13 +105,21 @@ export default {
   .main {
     .description {
       word-break: break-word;
-      margin-bottom: 1em;
+      margin-bottom: 5px;
     }
 
     .tags {
       color: var(--link-color);
       font-size: 70%;
       text-transform: lowercase;
+
+      span {
+        margin-right: 5px;
+
+        &:not(:last-child):after {
+          content: " ";
+        }
+      }
     }
   }
 }
