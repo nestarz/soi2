@@ -1,7 +1,7 @@
 <template>
   <div class="bookmark" :class="{ full }">
     <div class="header">
-      <div class="container-image">
+      <div class="container-image" v-if="screenshot">
         <g-image class="image" quality="20" blur="1" width="20" :src="screenshot"/>
       </div>
       <div class="title">

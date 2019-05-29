@@ -19,26 +19,6 @@
   @media only screen and (orientation: landscape) {
     grid-template-columns: 1fr 1fr 1fr;
   }
-
-  .post {
-    max-width: 50rem;
-
-    .thumbnail {
-      width: 100%;
-      filter: brightness(0);
-      display: none;
-    }
-
-    .name,
-    .description {
-      cursor: pointer;
-      display: inline;
-    }
-
-    .name {
-      font-weight: 700;
-    }
-  }
 }
 </style>
 

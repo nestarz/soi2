@@ -10,14 +10,12 @@
 
 <script>
 import author from "~/data/author.yml";
-import Listen from "~/components/listen.vue";
 
 export default {
   metaInfo: {
     title: "Index"
   },
   components: {
-    Listen
   },
   data() {
     return {
