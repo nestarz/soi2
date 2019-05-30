@@ -3,9 +3,9 @@
     <li
       v-for="(count, tag) in tags"
       :key="tag"
-      @click="select(tag)"
+      @click="count && select(tag)"
       class="tag"
-      :class="{ active : selected.has(tag) }"
+      :class="{ active : selected.has(tag), inactive: count === 0 }"
     >
       <span class="tag">
         {{ tag }}&nbsp;<span class="count">{{ count }}</span>
@@ -56,6 +56,11 @@ export default {
       color: var(--link-color);
       color: rgb(255, 62, 81);
       text-decoration: underline;
+    }
+
+    &.inactive {
+      opacity: 0.2;
+      cursor: default;
     }
 
     .count {

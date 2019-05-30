@@ -2,7 +2,7 @@ export default [
   {
     name: "ressourcesAdd",
     path: "/ressources/add",
-    component: () => import(/* webpackChunkName: "component--ressources-add" */ "/home/elirhouzlane/repos/perso/soi/src/pages/ressources/Add.vue"),
+      component: () => import(/* webpackChunkName: "component--ressources-add" */ "/home/elirhouzlane/repos/perso/soi/src/pages/ressources/Add.vue"),
     meta: { isStatic: true }
   },
   {

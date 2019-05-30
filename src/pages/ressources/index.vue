@@ -64,11 +64,17 @@ export default {
         .filter(post => filters.every(tag => post.tags.indexOf(tag) > -1));
     },
     fetchTags(filters = []) {
-      const tags = this.posts.flatMap(post => post.tags);
-      this.tags = tags.reduce((obj, num) => {
+      const tags = this.$page.ressources.edges
+        .flatMap(({ node: post }) => post.tags);
+      const poststags = this.posts.flatMap(post => post.tags);
+      this.tags = poststags.reduce((obj, num) => {
         obj[num] = ++obj[num] || 1;
         return obj;
       }, {});
+      this.tags = tags.reduce((obj, num) => {
+        obj[num] = obj[num] || 0;
+        return obj;
+      }, this.tags);
     }
   }
 };
@@ -79,7 +85,6 @@ export default {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
-  grid-gap: 5px;
   height: 100vh;
 
   .tags {
@@ -87,7 +92,7 @@ export default {
     grid-row: 1;
     overflow: auto;
     scrollbar-width: none;
-    padding: 0 5px;
+    padding: 5px;
 
     &::-webkit-scrollbar { 
       display: none; 
@@ -102,16 +107,20 @@ export default {
 
   .header {
     position: fixed;
-    top: 55%;
+    bottom: 0%;
     left: 0;
     right: 0;
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(0, 0, 0, 0.85);
     pointer-events: none;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     z-index: 99;
     padding: 5px;
+
+    h1 {
+      color: white;
+    }
 
     .search {
       flex: 0.5;
