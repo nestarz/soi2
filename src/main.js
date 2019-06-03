@@ -19,21 +19,9 @@ const langs = {
 
 // The Client API can be used here. Learn more: gridsome.org/docs/client-api
 export default function (Vue, {
-  router, head, isClient, appOptions,
+ router, head, isClient, appOptions 
 }) {
   Vue.use(Vuex);
-  appOptions.store = new Vuex.Store({
-    state: {
-      lang: typeof navigator === 'undefined' ? langs.fr
-        : ((navigator.language == 'fr-FR' || navigator.userLanguage == 'fr-FR')
-          ? langs.fr : langs.en),
-    },
-    mutations: {
-      toggleLang(state) {
-        state.lang = state.lang.slug == 'fr' ? langs.en : langs.fr;
-      },
-    },
-  });
 
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout);
