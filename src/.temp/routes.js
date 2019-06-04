@@ -1,5 +1,11 @@
 export default [
   {
+    name: "cv",
+    path: "/cv",
+    component: () => import(/* webpackChunkName: "component--cv" */ "/Users/elias/projects/soi/src/pages/cv.vue"),
+    meta: { isStatic: true }
+  },
+  {
     name: "tweets",
     path: "/tweets",
     component: () => import(/* webpackChunkName: "component--tweets" */ "/Users/elias/projects/soi/src/pages/tweets/index.vue")

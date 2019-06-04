@@ -79,7 +79,6 @@ export default {
     grid-row: 1;
     overflow: auto;
     scrollbar-width: none;
-    padding: 5px;
 
     &::-webkit-scrollbar {
       display: none;
@@ -94,20 +93,17 @@ export default {
 
   .header {
     position: fixed;
-    bottom: 0%;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.85);
+    bottom: 20%;
+    left: 50%;
+    right: 20%;
+    background-color: rgba(255, 255, 255, 0.85);
     pointer-events: none;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     z-index: 99;
     padding: 5px;
-
-    h1 {
-      color: white;
-    }
+    border: 1px solid;
 
     .search {
       flex: 0.5;
