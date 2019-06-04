@@ -96,14 +96,16 @@ export default {
     bottom: 20%;
     left: 50%;
     right: 20%;
-    background-color: rgba(255, 255, 255, 0.85);
     pointer-events: none;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     z-index: 99;
     padding: 5px;
-    border: 1px solid;
+
+    h1 {
+      transform: scale(8, 3.1);
+    }
 
     .search {
       flex: 0.5;
