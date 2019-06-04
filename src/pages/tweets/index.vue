@@ -2,13 +2,14 @@
   <div class="index">
     <header class="header">
       <h1>Tweets</h1>
-      <twitter-search class="search" :options="options" :posts="posts" @search="apply"/>
+      <twitter-search class="search" :posts="posts" @search="apply"/>
     </header>
     <twitter-names class="tags" ref="tags" :tags="tags" @select="fetch"/>
     <twitter-tweets
       class="posts"
       ref="posts"
-      :tweets="search || posts"
+      :posts="search || posts"
+      :masonry="true"
       @select="highlight"
       v-on:scroll.native="event => handleScroll(event, 'tags')"
     />
@@ -16,11 +17,11 @@
 </template>
 
 <script>
-import Fuse from "fuse.js";
-import TwitterTweets from "~/components/tweets.vue";
+import TwitterTweets from "~/components/posts.vue";
 import TwitterNames from "~/components/tags.vue";
 import TwitterSearch from "~/components/search.vue";
 
+const twitterLinkRegex = /(?:<\w+.*?>|[^=!:'"\/]|)((?:https?:\/\/|www\.)[-\w]+(?:\.[-\w]+)*(?::\d+)?(?:\/(?:(?:[~\w\+%-]|(?:[,.;@:][^\s$]))+)?)*(?:\?[\w\+%&=.;:-]+)?(?:\#[\w\-\.]*)?)(?:\p{P}|\s|<|$)/;
 export default {
   components: {
     TwitterTweets,
@@ -34,22 +35,6 @@ export default {
       posts: null,
       highlighted: null,
       selected: [],
-      options: {
-        keys: [
-          {
-            name: "fullText",
-            weight: 0.4
-          },
-          {
-            name: "user.name",
-            weight: 0.4
-          },
-          {
-            name: "user.screenName",
-            weight: 0.05
-          },
-        ],
-      },
     };
   },
   created() {
@@ -72,10 +57,30 @@ export default {
     },
     fetchPosts(filters = []) {
       this.posts = this.$page.tweets.edges
-        .map(({ node: post }) => post)
+        .map(({ node: tweet }) => {
+          const [description, url, ...others] = tweet.fullText.split(
+            twitterLinkRegex
+          );
+          return {
+            id: tweet.id,
+            url,
+            description,
+            category: tweet.createdAt,
+            name: tweet.user.name,
+            alias: tweet.user.screen_name,
+            location: tweet.user.location,
+            logo: tweet.user.profileImageUrlHttps,
+            screenshot:
+              tweet.entities && tweet.entities.media.length
+                ? tweet.entities.media[0].mediaUrlHttps
+                : tweet.entities && tweet.entities.media.length
+                ? tweet.extendedEntities.media[0].mediaUrlHttps
+                : null
+          };
+        })
         .filter(
           post =>
-            !this.selected.length || this.selected.includes(post.user.name)
+            !this.selected.length || this.selected.includes(post.name)
         );
     },
     fetchTags() {
