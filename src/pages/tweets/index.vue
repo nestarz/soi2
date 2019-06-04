@@ -2,10 +2,10 @@
   <div class="index">
     <header class="header">
       <h1>Tweets</h1>
-      <twitter-search class="search" :posts="posts" @search="apply"/>
+      <search class="search" :posts="posts" @search="apply"/>
     </header>
-    <twitter-names class="tags" ref="tags" :tags="tags" @select="fetch"/>
-    <twitter-tweets
+    <tags class="tags" ref="tags" :tags="tags" @select="fetch"/>
+    <posts
       class="posts"
       ref="posts"
       :posts="search || posts"
@@ -17,16 +17,16 @@
 </template>
 
 <script>
-import TwitterTweets from "~/components/posts.vue";
-import TwitterNames from "~/components/tags.vue";
-import TwitterSearch from "~/components/search.vue";
+import Posts from "~/components/posts.vue";
+import Tags from "~/components/tags.vue";
+import Search from "~/components/search.vue";
 
 const twitterLinkRegex = /(?:<\w+.*?>|[^=!:'"\/]|)((?:https?:\/\/|www\.)[-\w]+(?:\.[-\w]+)*(?::\d+)?(?:\/(?:(?:[~\w\+%-]|(?:[,.;@:][^\s$]))+)?)*(?:\?[\w\+%&=.;:-]+)?(?:\#[\w\-\.]*)?)(?:\p{P}|\s|<|$)/;
 export default {
   components: {
-    TwitterTweets,
-    TwitterSearch,
-    TwitterNames
+    Posts,
+    Tags,
+    Search,
   },
   data() {
     return {
