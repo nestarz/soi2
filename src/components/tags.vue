@@ -1,5 +1,6 @@
 <template>
-  <nav class="tags">
+  <div class="tags">
+    <nav>
     <li
       v-for="([tag, count]) in sorted"
       :key="tag"
@@ -8,11 +9,11 @@
       :class="{ active : selected.has(tag), inactive: count === 0 }"
     >
       <span class="tag">
-        {{ tag }}&nbsp;
-        <span class="count">{{ count }}</span>
+        {{ tag }}&nbsp;<span class="count">{{ count }}</span>
       </span>
     </li>
-  </nav>
+    </nav>
+  </div>
 </template>
 
 <script>
@@ -46,20 +47,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tags {
+nav {
   list-style: none;
   margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  align-content: flex-start;
+  columns: 2;
 
   .tag {
     margin: 0;
     cursor: pointer;
     flex: 0;
-    flex-basis: 50%;
-    max-width: 50%;
     align-self: flex-start;
 
     &.active {
