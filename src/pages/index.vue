@@ -4,6 +4,7 @@
     <div class="name">Elias Rhouzlane</div>
     <div class="ressources">
       <g-link to="/ressources">Ressources</g-link>
+      <g-link to="/tweets">Tweets</g-link>
     </div>
   </div>
 </template>

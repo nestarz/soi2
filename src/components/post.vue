@@ -1,8 +1,9 @@
 <template>
   <div class="bookmark" :class="{ full }">
     <div class="header">
-      <div class="container-image" v-if="screenshot">
-        <g-image class="image" quality="20" blur="1" width="20" :src="screenshot"/>
+      <div class="container-image">
+        <g-image class="image" quality="20" blur="1" width="20" :src="screenshot" v-if="screenshot"/>
+        <div v-else></div>
       </div>
       <div class="title">
         <a :href="url">
@@ -35,7 +36,7 @@ export default {
     url: String,
     description: String,
     authors: Array,
-    location: Object,
+    location: [Object, String],
     tags: Array,
     screenshot: String,
     slug: String,
@@ -44,7 +45,7 @@ export default {
   computed: {
     locationFormatted() {
       const full = this.location.city && this.location.country;
-      return `${this.location.city}${full ? ", " : ""}${this.location.country}`;
+      return full ? `${this.location.city}${full ? ", " : ""}${this.location.country}` : this.location;
     }
   }
 };
@@ -83,11 +84,18 @@ export default {
       }
     }
     .container-image {
-      display: grid;
+      //display: grid;
       background-color: #eee;
+      //grid-auto-rows: minmax(350px, max-content);
+      min-height: 200px;
 
       img {
         position: relative;
+        object-fit: cover;
+        width: 100%;
+        max-height: 100%;
+        bottom: 0;
+        height: 100%;
 
         &:after {
           position: absolute;

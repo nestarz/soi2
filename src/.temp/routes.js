@@ -1,5 +1,10 @@
 export default [
   {
+    name: "tweets",
+    path: "/tweets",
+    component: () => import(/* webpackChunkName: "component--tweets" */ "/Users/elias/projects/soi/src/pages/tweets/index.vue")
+  },
+  {
     name: "ressourcesAdd",
     path: "/ressources/add",
     component: () => import(/* webpackChunkName: "component--ressources-add" */ "/Users/elias/projects/soi/src/pages/ressources/add.vue"),

@@ -3,6 +3,9 @@ import '~/assets/style/index.scss';
 
 // Import default layout so we don't need to import it to every page
 import DefaultLayout from '~/layouts/default.vue';
+import VueMasonry from 'vue-masonry-css'
+
+
 
 import Vuex from 'vuex';
 
@@ -22,6 +25,7 @@ export default function (Vue, {
  router, head, isClient, appOptions 
 }) {
   Vue.use(Vuex);
+  Vue.use(VueMasonry);
 
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout);

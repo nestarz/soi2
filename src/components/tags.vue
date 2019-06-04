@@ -1,14 +1,15 @@
 <template>
   <nav class="tags">
     <li
-      v-for="(count, tag) in tags"
+      v-for="([tag, count]) in sorted"
       :key="tag"
       @click="count && select(tag)"
       class="tag"
       :class="{ active : selected.has(tag), inactive: count === 0 }"
     >
       <span class="tag">
-        {{ tag }}&nbsp;<span class="count">{{ count }}</span>
+        {{ tag }}&nbsp;
+        <span class="count">{{ count }}</span>
       </span>
     </li>
   </nav>
@@ -30,6 +31,15 @@ export default {
         ? this.selected.delete(tag)
         : this.selected.set(tag, null);
       this.$emit("select", Array.from(this.selected.keys()));
+    }
+  },
+  computed: {
+    sorted() {
+      var sortable = [];
+      for (var tag in this.tags) {
+        sortable.push([tag, this.tags[tag]]);
+      }
+      return sortable.sort((a, b) => b[1] - a[1]);
     }
   }
 };
