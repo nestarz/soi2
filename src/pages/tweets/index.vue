@@ -2,16 +2,16 @@
   <div class="index">
     <header class="header">
       <h1>Tweets</h1>
+      <twitter-search class="search" :options="options" :posts="posts" @search="apply"/>
     </header>
-    <twitter-names class="tags" ref="tags" :tags="tags" @select="selected => fetch(selected)"/>
+    <twitter-names class="tags" ref="tags" :tags="tags" @select="fetch"/>
     <twitter-tweets
       class="posts"
       ref="posts"
-      :posts="search || posts"
-      @select="post => highlight(post)"
+      :tweets="search || posts"
+      @select="highlight"
       v-on:scroll.native="event => handleScroll(event, 'tags')"
     />
-    <div class="highlight" v-if="false">{{ highlighted.name }}</div>
   </div>
 </template>
 
@@ -32,7 +32,24 @@ export default {
       search: null,
       tags: null,
       posts: null,
-      highlighted: null
+      highlighted: null,
+      selected: [],
+      options: {
+        keys: [
+          {
+            name: "fullText",
+            weight: 0.4
+          },
+          {
+            name: "user.name",
+            weight: 0.4
+          },
+          {
+            name: "user.screenName",
+            weight: 0.05
+          },
+        ],
+      },
     };
   },
   created() {
@@ -48,12 +65,18 @@ export default {
     apply(results) {
       this.search = results;
     },
-    fetch() {
-      this.fetchPosts();
-      this.fetchTags();
+    fetch(filters = []) {
+      this.selected = filters;
+      this.fetchPosts(filters);
+      this.fetchTags(filters);
     },
-    fetchPosts() {
-      this.posts = this.$page.tweets.edges.map(({ node: post }) => post);
+    fetchPosts(filters = []) {
+      this.posts = this.$page.tweets.edges
+        .map(({ node: post }) => post)
+        .filter(
+          post =>
+            !this.selected.length || this.selected.includes(post.user.name)
+        );
     },
     fetchTags() {
       this.tags = this.$page.tweets.edges
@@ -103,7 +126,7 @@ export default {
     align-items: center;
     z-index: 99;
     padding: 5px;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0, 0, 0, 0.9);
 
     h1 {
       color: #fff;

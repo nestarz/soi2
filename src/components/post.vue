@@ -31,13 +31,15 @@
           <div
             class="location"
             v-if="props.location"
-          >{{ props.full ? `${props.location.city}${props.full ? ", " : ""}${props.location.country}` : props.location }}</div>
+          >{{ typeof props.location === 'object' ? `${props.location.city}${props.location.country && props.location.city  ? ", " : ""}${props.location.country}` : props.location }}</div>
           <div v-for="author in props.authors" :key="author">{{ author }}</div>
         </div>
       </div>
     </div>
     <div class="main">
-      <div class="description">{{ props.description.length > 249 ? props.description.replace(/^(.{249}[^\s]*).*/, "$1...") : props.description }}</div>
+      <div
+        class="description"
+      >{{ props.description.length > 249 ? props.description.replace(/^(.{249}[^\s]*).*/, "$1...") : props.description }}</div>
       <div class="tags">
         <span class="category">{{ `${props.category} ` }}</span>
         <span v-for="tag in props.tags" :key="tag">{{ `${tag} ` }}</span>

@@ -50,7 +50,11 @@ export default {
 nav {
   list-style: none;
   margin: 0;
-  columns: 2;
+  columns: 1;
+  
+  @media screen and (min-width: 1300px) {
+    columns: 2;
+  }
 
   .tag {
     margin: 0;

@@ -18,11 +18,12 @@ import Fuse from "fuse.js";
 
 export default {
   props: {
-    posts: Array
+    posts: Array,
+    options: Object,
   },
   data() {
     return {
-      search: null
+      search: null,
     };
   },
   computed: {
@@ -60,7 +61,8 @@ export default {
             name: "alias",
             weight: 0.05
           }
-        ]
+        ],
+        ...this.options,
       };
       return new Fuse(this.posts, options);
     },
