@@ -94,17 +94,19 @@ export default {
   .header {
     position: fixed;
     bottom: 20%;
-    left: 50%;
+    left: 70%;
     right: 20%;
+    top: 70%;
     pointer-events: none;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     z-index: 99;
     padding: 5px;
+    background: rgba(0,0,0,0.9);
 
     h1 {
-      transform: scale(8, 3.1);
+      color: #fff;
     }
 
     .search {
@@ -139,6 +141,8 @@ query Tweets {
           name
           screenName
           location
+          profileImageUrlHttps
+          profileBannerUrl
         }
         createdAt
         parentCreatedAt

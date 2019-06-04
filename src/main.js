@@ -1,3 +1,4 @@
+import "circular-std";
 // This is the main.js file. Import global CSS and scripts here.
 import '~/assets/style/index.scss';
 

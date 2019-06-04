@@ -12,20 +12,32 @@
         />
         <div v-else></div>
       </div>
-      <div class="title">
-        <a :href="props.url">
-          <span class="name">{{ props.name }}</span>
-          <span class="alias" v-if="props.alias">({{ props.alias }})</span>
-        </a>
-        <div
-          class="location"
-          v-if="props.location"
-        >{{ props.full ? `${props.location.city}${props.full ? ", " : ""}${props.location.country}` : props.location }}</div>
-        <div v-for="author in props.authors" :key="author">{{ author }}</div>
+      <div class="head">
+        <div class="logo" v-if="props.logo">
+          <g-image
+            class="image"
+            quality="20"
+            blur="1"
+            width="20"
+            :src="props.logo"
+            v-if="props.logo"
+          />
+        </div>
+        <div class="title">
+          <a :href="props.url">
+            <span class="name">{{ props.name }}</span>
+            <span class="alias" v-if="props.alias">({{ props.alias }})</span>
+          </a>
+          <div
+            class="location"
+            v-if="props.location"
+          >{{ props.full ? `${props.location.city}${props.full ? ", " : ""}${props.location.country}` : props.location }}</div>
+          <div v-for="author in props.authors" :key="author">{{ author }}</div>
+        </div>
       </div>
     </div>
     <div class="main">
-      <div class="description">{{ props.description.replace(/^(.{135}[^\s]*).*/, "$1") }}...</div>
+      <div class="description">{{ props.description.length > 249 ? props.description.replace(/^(.{249}[^\s]*).*/, "$1...") : props.description }}</div>
       <div class="tags">
         <span class="category">{{ `${props.category} ` }}</span>
         <span v-for="tag in props.tags" :key="tag">{{ `${tag} ` }}</span>
@@ -49,13 +61,17 @@ export default {
     tags: Array,
     screenshot: String,
     slug: String,
-    index: Number
+    index: Number,
+    logo: String
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .bookmark {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+
   &.full {
     display: grid;
     grid-template-columns: 1fr;
@@ -66,6 +82,11 @@ export default {
   .header {
     margin-bottom: 5px;
 
+    .head {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      grid-gap: 10px;
+    }
     .title {
       margin-top: 10px;
 
@@ -90,7 +111,7 @@ export default {
       //display: grid;
       background-color: #eee;
       //grid-auto-rows: minmax(350px, max-content);
-      min-height: 200px;
+      //min-height: 200px;
 
       img {
         position: relative;

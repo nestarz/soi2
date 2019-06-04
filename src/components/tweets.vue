@@ -11,6 +11,7 @@
         :url="''"
         :description="post.fullText.split('https://t.co/')[0]"
         :location="post.user.location"
+        :logo="post.user.profileImageUrlHttps"
         :screenshot="(post.entities && 
         post.entities.media.length)
         ? post.entities.media[0].mediaUrlHttps 
