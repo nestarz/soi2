@@ -37,7 +37,10 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100%;
-
+  .ressources {
+    display: flex;
+    flex-direction: column;
+  }
   .name {
     padding: 1em;
   }

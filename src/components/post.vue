@@ -1,33 +1,42 @@
-<template>
-  <div class="bookmark" :class="{ full }">
+<template functional>
+  <div class="bookmark" :class="{ full: props.full }">
     <div class="header">
       <div class="container-image">
-        <g-image class="image" quality="20" blur="1" width="20" :src="screenshot" v-if="screenshot"/>
+        <g-image
+          class="image"
+          quality="20"
+          blur="1"
+          width="20"
+          :src="props.screenshot"
+          v-if="props.screenshot"
+        />
         <div v-else></div>
       </div>
       <div class="title">
-        <a :href="url">
-          <span class="name">{{ name }}</span>
-          <span class="alias" v-if="alias">({{ alias }})</span>
+        <a :href="props.url">
+          <span class="name">{{ props.name }}</span>
+          <span class="alias" v-if="props.alias">({{ props.alias }})</span>
         </a>
-        <div class="location" v-if="location">{{ locationFormatted }}</div>
-        <div v-for="author in authors" :key="author">{{ author }}</div>
+        <div
+          class="location"
+          v-if="props.location"
+        >{{ props.full ? `${props.location.city}${props.full ? ", " : ""}${props.location.country}` : props.location }}</div>
+        <div v-for="author in props.authors" :key="author">{{ author }}</div>
       </div>
     </div>
     <div class="main">
-      <div class="description">{{ description.replace(/^(.{135}[^\s]*).*/, "$1") }}...</div>
+      <div class="description">{{ props.description.replace(/^(.{135}[^\s]*).*/, "$1") }}...</div>
       <div class="tags">
-        <span class="category">{{ `${category} ` }}</span>
-        <span v-for="tag in tags" :key="tag">{{ `${tag} ` }}</span>
+        <span class="category">{{ `${props.category} ` }}</span>
+        <span v-for="tag in props.tags" :key="tag">{{ `${tag} ` }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import book from "~/data/author.yml";
-
 export default {
+  functional: true,
   props: {
     full: Boolean,
     category: String,
@@ -41,12 +50,6 @@ export default {
     screenshot: String,
     slug: String,
     index: Number
-  },
-  computed: {
-    locationFormatted() {
-      const full = this.location.city && this.location.country;
-      return full ? `${this.location.city}${full ? ", " : ""}${this.location.country}` : this.location;
-    }
   }
 };
 </script>
