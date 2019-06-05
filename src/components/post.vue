@@ -86,7 +86,7 @@ export default {
 
     .head {
       display: grid;
-      grid-template-columns: max-content 1fr;
+      grid-template-columns: 1fr 1fr;
       grid-gap: 10px;
     }
     .title {

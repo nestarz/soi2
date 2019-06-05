@@ -2,7 +2,8 @@
   <div class="index">
     <header class="header">
       <h1>Ressources</h1>
-      <resources-search class="search" :posts="posts" @search="results => apply(results)"/>
+      <h1><g-link to="/">ER</g-link></h1>
+      <!-- <resources-search class="search" :posts="posts" @search="results => apply(results)"/> -->
     </header>
     <resources-tags
       class="tags"
@@ -83,94 +84,59 @@ export default {
 <style lang="scss" scoped>
 .index {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  grid-template-areas:
+    "b a a"
+    "b c c"
+    "b c c";
+  grid-template-rows: 0.5fr 1fr 1fr;
+  grid-gap: 5px;
   height: 100vh;
 
   .tags {
-    grid-column: 1;
-    grid-row: 1;
     overflow: auto;
     scrollbar-width: none;
-    padding: 5px;
+    grid-area: a;
 
-    &::-webkit-scrollbar { 
-      display: none; 
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 
   .posts {
-    grid-column: 1;
-    grid-row: 2;
     overflow: auto;
+    grid-area: c;
   }
 
   .header {
-    position: fixed;
-    bottom: 0%;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.85);
-    pointer-events: none;
+    grid-area: b;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
     z-index: 99;
     padding: 5px;
-
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
     h1 {
-      color: white;
+      display: flex;
+      justify-content: center;
+      transform: rotate(180deg);
+      font-size: 12vmin;
+      line-height: 10vmin;
     }
 
     .search {
       flex: 0.5;
       pointer-events: all;
+      transform: rotate(-90deg);
+      float: left;
     }
   }
 
   @media only screen and (orientation: landscape) {
-    grid-template-columns: 0.2fr 0.8fr;
-    grid-template-rows: 100vh;
-
-    .posts {
-      grid-column: 2;
-      grid-row: 1 / span 3;
-    }
+    grid-template-areas: "b a c";
+    grid-template-columns: 0fr 0.2fr 0.8fr;
+    grid-template-rows: 1fr;
   }
-
-  /* display: grid;
-  grid-template:
-    "b c" auto / 0.2fr 0.8fr;
-  grid-gap: 1rem;
-  .header {
-    grid-area: d;
-    position: fixed;
-    top: 50%;
-    left: 0;
-    right: 0;
-    background-color: rgba(255, 255, 255, 0.85);
-    border-bottom: 1px solid;
-    pointer-events: none;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    z-index: 99;
-
-    .search {
-      flex: 0.5;
-      pointer-events: all;
-    }
-  }
-  .tags {
-    grid-area: b;
-    max-height: 100vh;
-    overflow: scroll;
-  }
-  .posts {
-    grid-area: c;
-    max-height: 100vh;
-    overflow: scroll;
-  } */
 }
 </style>
 

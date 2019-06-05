@@ -1,19 +1,21 @@
 <template>
-  <component
-    :is="masonry ? 'masonry' : 'div'"
-    :cols="{ default: 3, 1000: 2, 500: 1, 400: 1 }"
-    :gutter="{ default: '5px' }"
-    :class="{ grid: !masonry }"
-    class="posts"
-  >
-    <resource-post
-      class="post"
-      v-for="post in posts"
-      :key="post.id || `post-${index}`"
-      v-bind="post"
-      @click="$emit('select', post)"
-    />
-  </component>
+  <div>
+    <component
+      :is="masonry ? 'masonry' : 'div'"
+      :cols="{ default: 3, 1000: 2, 500: 1, 400: 1 }"
+      :gutter="{ default: '5px' }"
+      :class="{ grid: !masonry }"
+      class="posts"
+    >
+      <resource-post
+        class="post"
+        v-for="post in posts"
+        :key="post.id || `post-${index}`"
+        v-bind="post"
+        @click="$emit('select', post)"
+      />
+    </component>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -23,7 +25,7 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 0.2rem;
     margin-bottom: 40px;
-  
+
     @media only screen and (orientation: landscape) {
       grid-template-columns: 1fr 1fr 1fr;
     }
@@ -40,7 +42,7 @@ export default {
   },
   props: {
     posts: Array,
-    masonry: Boolean,
+    masonry: Boolean
   }
 };
 </script>

@@ -2,7 +2,7 @@
   <div class="index">
     <header class="header">
       <h1>Les Tweets</h1>
-      <h1>ER</h1>
+      <h1><g-link to="/">ER</g-link></h1>
     </header>
     <tags class="tags" ref="tags" :tags="tags" @select="fetch"/>
     <posts
