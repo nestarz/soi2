@@ -55,7 +55,7 @@ const fetch = async (count, savePath) => {
     try {
       tweets = await singleFetch({ since_id: sinceId });
     } catch (error) {
-      console.warn(error);
+      console.log('Error:', error);
     }
     const allTweets = [...tweets, ...prevTweets].sort((a, b) => b.id - a.id);
     fs.writeFileSync(savePath, JSON.stringify(allTweets));

@@ -17,15 +17,15 @@ export default [
     meta: { isStatic: true }
   },
   {
-    name: "cv",
-    path: "/cv",
-    component: () => import(/* webpackChunkName: "component--cv" */ "/Users/elias/projects/soi/src/pages/cv.vue"),
-    meta: { isStatic: true }
-  },
-  {
     name: "about",
     path: "/about",
     component: () => import(/* webpackChunkName: "component--about" */ "/Users/elias/projects/soi/src/pages/about.vue"),
+    meta: { isStatic: true }
+  },
+  {
+    name: "cv",
+    path: "/cv",
+    component: () => import(/* webpackChunkName: "component--cv" */ "/Users/elias/projects/soi/src/pages/cv.vue"),
     meta: { isStatic: true }
   },
   {
