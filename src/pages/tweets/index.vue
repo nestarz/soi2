@@ -1,8 +1,8 @@
 <template>
   <div class="index">
     <header class="header">
-      <h1>Tweets</h1>
-      <search class="search" :posts="posts" @search="apply"/>
+      <h1>Les Tweets</h1>
+      <h1>ER</h1>
     </header>
     <tags class="tags" ref="tags" :tags="tags" @select="fetch"/>
     <posts
@@ -26,7 +26,7 @@ export default {
   components: {
     Posts,
     Tags,
-    Search,
+    Search
   },
   data() {
     return {
@@ -34,7 +34,7 @@ export default {
       tags: null,
       posts: null,
       highlighted: null,
-      selected: [],
+      selected: []
     };
   },
   created() {
@@ -79,8 +79,7 @@ export default {
           };
         })
         .filter(
-          post =>
-            !this.selected.length || this.selected.includes(post.name)
+          post => !this.selected.length || this.selected.includes(post.name)
         );
     },
     fetchTags() {
@@ -98,15 +97,18 @@ export default {
 <style lang="scss" scoped>
 .index {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  grid-template-areas:
+    "b a a"
+    "b c c"
+    "b c c";
+  grid-template-rows: 0.5fr 1fr 1fr;
+  grid-gap: 5px;
   height: 100vh;
 
   .tags {
-    grid-column: 1;
-    grid-row: 1;
     overflow: auto;
     scrollbar-width: none;
+    grid-area: a;
 
     &::-webkit-scrollbar {
       display: none;
@@ -114,43 +116,39 @@ export default {
   }
 
   .posts {
-    grid-column: 1;
-    grid-row: 2;
     overflow: auto;
+    grid-area: c;
   }
 
   .header {
-    position: fixed;
-    bottom: 20%;
-    left: 70%;
-    right: 20%;
-    top: 70%;
-    pointer-events: none;
+    grid-area: b;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
     z-index: 99;
     padding: 5px;
-    background: rgba(0, 0, 0, 0.9);
-
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
     h1 {
-      color: #fff;
+      display: flex;
+      justify-content: center;
+      transform: rotate(180deg);
+      font-size: 12vmin;
+      line-height: 10vmin;
     }
 
     .search {
       flex: 0.5;
       pointer-events: all;
+      transform: rotate(-90deg);
+      float: left;
     }
   }
 
   @media only screen and (orientation: landscape) {
-    grid-template-columns: 0.2fr 0.8fr;
-    grid-template-rows: 100vh;
-
-    .posts {
-      grid-column: 2;
-      grid-row: 1 / span 3;
-    }
+    grid-template-areas: "b a c";
+    grid-template-columns: 0fr 0.2fr 0.8fr;
+    grid-template-rows: 1fr;
   }
 }
 </style>
