@@ -9,7 +9,7 @@
     >
       <resource-post
         class="post"
-        v-for="post in posts"
+        v-for="(post, index) in posts"
         :key="post.id || `post-${index}`"
         v-bind="post"
         @click="$emit('select', post)"

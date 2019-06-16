@@ -3,5 +3,5 @@ export default {
   "siteName": "Gridsome",
   "titleTemplate": "%s | Elias Rhouzlane",
   "siteDescription": "",
-  "version": "0.5.7"
+  "version": "0.6.4"
 }

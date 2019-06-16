@@ -2,17 +2,23 @@
   <div class="index">
     <header class="header">
       <h1>Les Tweets</h1>
-      <h1><g-link to="/">ER</g-link></h1>
+      <h1>
+        <g-link to="/">ER</g-link>
+      </h1>
     </header>
     <tags class="tags" ref="tags" :tags="tags" @select="fetch"/>
-    <posts
-      class="posts"
-      ref="posts"
-      :posts="search || posts"
-      :masonry="true"
-      @select="highlight"
-      v-on:scroll.native="event => handleScroll(event, 'tags')"
-    />
+    <div class="posts">
+      <posts
+        ref="posts"
+        :posts="search || posts"
+        :masonry="true"
+        @select="highlight"
+        v-on:scroll.native="event => handleScroll(event, 'tags')"
+      />
+      <ClientOnly>
+        <infinite-loading @infinite="infiniteHandler" v-if="$page"></infinite-loading>
+      </ClientOnly>
+    </div>
   </div>
 </template>
 
@@ -26,7 +32,8 @@ export default {
   components: {
     Posts,
     Tags,
-    Search
+    Search,
+    InfiniteLoading: () => import("vue-infinite-loading")
   },
   data() {
     return {
@@ -41,6 +48,25 @@ export default {
     this.fetch();
   },
   methods: {
+    async infiniteHandler($state) {
+      try {
+        const results = await this.$fetch(
+          "/tweets/" + (this.$page.tweets.pageInfo.currentPage + 1)
+        );
+        if (results.data.tweets.edges.length > 0) {
+          this.$page.tweets.pageInfo.currentPage = this.$page.tweets.pageInfo.currentPage + 1;
+          this.$page.tweets.edges = this.$page.tweets.edges.concat(
+            results.data.tweets.edges
+          );
+          $state.loaded();
+          this.fetch();
+        } else {
+          $state.complete();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
     handleScroll(event, ref) {
       this.$refs[ref].$el.scrollTop = event.target.scrollTop;
     },
@@ -58,23 +84,23 @@ export default {
     fetchPosts(filters = []) {
       this.posts = this.$page.tweets.edges
         .map(({ node: tweet }) => {
-          const [description, url, ...others] = tweet.fullText.split(
+          const [description, url, ...others] = tweet.full_text.split(
             twitterLinkRegex
           );
           return {
             id: tweet.id,
             url,
             description,
-            category: tweet.createdAt,
+            category: tweet.created_at,
             name: tweet.user.name,
             alias: tweet.user.screen_name,
             location: tweet.user.location,
-            logo: tweet.user.profileImageUrlHttps,
+            logo: tweet.user.profile_image_url_https,
             screenshot:
               tweet.entities && tweet.entities.media.length
-                ? tweet.entities.media[0].mediaUrlHttps
+                ? tweet.entities.media[0].media_url_https
                 : tweet.entities && tweet.entities.media.length
-                ? tweet.extendedEntities.media[0].mediaUrlHttps
+                ? tweet.extendedEntities.media[0].media_url_https
                 : null
           };
         })
@@ -83,7 +109,7 @@ export default {
         );
     },
     fetchTags() {
-      this.tags = this.$page.tweets.edges
+      this.tags = this.$page.tags.edges
         .map(({ node: post }) => post.user.name)
         .reduce((obj, num) => {
           obj[num] = ++obj[num] || 1;
@@ -154,32 +180,49 @@ export default {
 </style>
 
 <page-query>
-query Tweets {
-  tweets: allTweets(
-    sortBy: "parent_created_at", 
-    order: ASC, 
-    perPage: 300, 
+query Tweets($page: Int) {
+  tags: allTweets(
+    sortBy: "id", 
+    order: DESC, 
   ) {
     edges {
       node {
-        fullText
         user {
           name
-          screenName
-          location
-          profileImageUrlHttps
-          profileBannerUrl
         }
-        createdAt
-        parentCreatedAt
-        extendedEntities {
+      }
+    }
+  }
+  tweets: allTweets(
+    sortBy: "id", 
+    order: DESC, 
+    perPage: 20, 
+    page: $page,
+  ) @paginate {
+    pageInfo {
+      totalPages
+      currentPage
+    }
+    edges {
+      node {
+        full_text
+        user {
+          name
+          screen_name
+          location
+          profile_image_url_https
+          profile_banner_url
+        }
+        created_at
+        parent_created_at
+        extended_entities {
           media {
-            mediaUrlHttps
+            media_url_https
           }
         }
         entities {
           media {
-            mediaUrlHttps
+            media_url_https
           }
         }
       }

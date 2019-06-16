@@ -11,7 +11,6 @@ function server(api) {
   api.loadSource(async (store) => {
     const tweetCollection = store.addContentType({
       typeName: 'Tweets',
-      route: '/tweets/:slug',
     });
     const tweets = await twitter(2000, './content/twitter/statuses/user_timeline.json');
     tweets.forEach((parentTweet) => {
@@ -20,6 +19,7 @@ function server(api) {
         : parentTweet;
       tweetCollection.addNode({
         id: tweet.id,
+        path: `tweet/${tweet.id}`,
         fields: {
           parent_id: parentTweet.id,
           parent_created_at: parentTweet.created_at,
@@ -36,7 +36,7 @@ function server(api) {
 
     const collection = store.addContentType({
       typeName: 'Ressources',
-      route: '/ressources/:slug',
+      route: '/ressource/:slug',
     });
     const resources = (await glob('content/ressources/**/*.yml')).map((file) => {
       const resource = jsYaml.load(fs.readFileSync(file, 'utf8'));
