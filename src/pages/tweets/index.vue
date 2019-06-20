@@ -127,7 +127,7 @@ export default {
     "b a a"
     "b c c"
     "b c c";
-  grid-template-rows: 0.5fr 1fr 1fr;
+  grid-template-rows: 0.19fr 1fr 1fr;
   grid-gap: 5px;
   height: 100vh;
 

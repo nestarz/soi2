@@ -1,56 +1,11 @@
-<template functional>
-  <div class="bookmark" :class="{ full: props.full }">
-    <div class="header">
-      <div class="container-image">
-        <g-image
-          class="image"
-          quality="20"
-          blur="1"
-          width="20"
-          :src="props.screenshot"
-          v-if="props.screenshot"
-        />
-        <div v-else></div>
-      </div>
-      <div class="head">
-        <div class="logo" v-if="props.logo">
-          <g-image
-            class="image"
-            quality="20"
-            blur="1"
-            width="20"
-            :src="props.logo"
-            v-if="props.logo"
-          />
-        </div>
-        <div class="title">
-          <a :href="props.url">
-            <span class="name">{{ props.name }}</span>
-            <span class="alias" v-if="props.alias">({{ props.alias }})</span>
-          </a>
-          <div
-            class="location"
-            v-if="props.location"
-          >{{ typeof props.location === 'object' ? `${props.location.city}${props.location.country && props.location.city  ? ", " : ""}${props.location.country}` : props.location }}</div>
-          <div v-for="author in props.authors" :key="author">{{ author }}</div>
-        </div>
-      </div>
-    </div>
-    <div class="main">
-      <div
-        class="description"
-      >{{ props.description.length > 249 ? props.description.replace(/^(.{249}[^\s]*).*/, "$1...") : props.description }}</div>
-      <div class="tags">
-        <span class="category">{{ `${props.category} ` }}</span>
-        <span v-for="tag in props.tags" :key="tag">{{ `${tag} ` }}</span>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
+import PostContent from "~/components/content.vue";
+let a = 1;
 export default {
   functional: true,
+  components: {
+    PostContent
+  },
   props: {
     full: Boolean,
     category: String,
@@ -65,95 +20,55 @@ export default {
     slug: String,
     index: Number,
     logo: String
+  },
+  render(h, { props }) {
+    if (props.screenshot) {
+      a = a + 1;
+      const res = [
+        <div class="container-image">
+          <g-image
+            class="image"
+            quality="20"
+            blur="1"
+            width="20"
+            src={props.screenshot}
+          />
+        </div>,
+        <PostContent {...{ props: props }} />
+      ];
+      return res.reverse();
+    }
+    return [<PostContent {...{ props: props }} />];
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.bookmark {
-  margin-bottom: 5px;
-  padding-bottom: 5px;
+.container-image {
+  min-height: 10vmax;
 
-  &.full {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-columns: minmax(0, 0.3fr) minmax(0, 0.7fr);
-    grid-gap: 0 1em;
-  }
+  /* &:hover {
 
-  .header {
-    margin-bottom: 5px;
-
-    .head {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 10px;
+    & /deep/ img {
+      position: absolute;
+      left: 0;
+      pointer-events: none;
+      width: 50vw;
     }
-    .title {
-      margin-top: 10px;
+  } */
 
-      a {
-        color: rgb(255, 62, 81);
-        .name {
-          background: ghostwhite;
-        }
-      }
+  /deep/ img {
+    position: relative;
+    object-fit: cover;
+    width: 100%;
+    max-height: 100%;
+    bottom: 0;
+    height: 100%;
+    min-height: 20vmax;
 
-      .alias {
-        font-size: 70%;
-        font-style: italic;
-      }
-
-      .location {
-        font-size: 70%;
-        font-style: italic;
-      }
-    }
-    .container-image {
-      //display: grid;
-      background-color: #eee;
-      //grid-auto-rows: minmax(350px, max-content);
-      //min-height: 200px;
-
-      img {
-        position: relative;
-        object-fit: cover;
-        width: 100%;
-        max-height: 100%;
-        bottom: 0;
-        height: 100%;
-
-        &:after {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: #fafafa;
-          content: " ";
-        }
-      }
-    }
-  }
-
-  .main {
-    .description {
-      word-break: break-word;
-      margin-bottom: 5px;
-    }
-
-    .tags {
-      color: var(--link-color);
-      font-size: 70%;
-      text-transform: lowercase;
-
-      span {
-        margin-right: 5px;
-
-        &:not(:last-child):after {
-          content: " ";
-        }
-      }
+    @media only screen and (orientation: landscape) {
+      object-fit: contain;
+      min-height: 10vmax;
     }
   }
 }
