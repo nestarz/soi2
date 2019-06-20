@@ -1,12 +1,6 @@
 <template>
   <div>
-    <component
-      :is="masonry ? 'masonry' : 'div'"
-      :cols="{ default: 3, 1000: 2, 500: 1, 400: 1 }"
-      :gutter="{ default: '5px' }"
-      :class="{ grid: !masonry }"
-      class="posts"
-    >
+    <div class="posts grid">
       <resource-post
         class="post"
         v-for="(post, index) in posts"
@@ -14,7 +8,7 @@
         v-bind="post"
         @click="$emit('select', post)"
       />
-    </component>
+    </div>
   </div>
 </template>
 
