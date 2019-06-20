@@ -1,11 +1,52 @@
+<template functional>
+  <div class="bookmark" :class="{ container: props.screenshot }">
+    <div class="container-image" v-if="props.screenshot">
+      <g-image class="image" quality="20" blur="1" width="20" :src="props.screenshot"/>
+    </div>
+    <div class="main">
+      <div class="header">
+        <div class="head">
+          <div class="logo" v-if="props.logo">
+            <g-image
+              class="image"
+              quality="20"
+              blur="1"
+              width="20"
+              :src="props.logo"
+              v-if="props.logo"
+            />
+          </div>
+          <div class="title">
+            <a :href="props.url">
+              <span class="name" v-if="props.name">{{ props.name }}</span>
+              <span class="alias" v-else-if="props.alias">@{{ props.alias }}</span>
+            </a>
+            <div class="location">
+              <template v-if="props.alias">@{{ props.alias }}</template>
+              <template
+                v-if="props.location"
+              >{{ typeof props.location === 'object' ? `${props.location.city}${props.location.country && props.location.city ? ", " : ""}${props.location.country}` : props.location }}</template>
+              <div v-for="author in props.authors" :key="author">{{ author }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <div
+          class="description"
+        >{{ props.description.length > 249 ? props.description.replace(/^(.{249}[^\s]*).*/, "$1...") : props.description }}</div>
+        <div class="tags">
+          <!-- <span class="category">{{ `${props.category} ` }}</span> -->
+          <span v-for="tag in props.tags" :key="tag">{{ `${tag} ` }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script>
-import PostContent from "~/components/content.vue";
-let a = 1;
 export default {
   functional: true,
-  components: {
-    PostContent
-  },
   props: {
     full: Boolean,
     category: String,
@@ -20,49 +61,37 @@ export default {
     slug: String,
     index: Number,
     logo: String
-  },
-  render(h, { props }) {
-    if (props.screenshot) {
-      a = a + 1;
-      const res = [
-        <div class="container">
-          <div class="container-image">
-            <g-image
-              class="image"
-              quality="20"
-              blur="1"
-              width="20"
-              src={props.screenshot}
-            />
-          </div>
-          <PostContent {...{ props: props }} />
-        </div>
-      ];
-      return res.reverse();
-    }
-    return [<PostContent {...{ props: props }} />];
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.container {
-  grid-row-start: span 2;
-  display: grid;
-  grid-gap: 0.2em;
-  grid-template-rows: 1fr 1fr;
-}
-.container-image {
-  height: 100%;
-  position: relative;
+.bookmark {
+  &.container {
+    grid-row-start: span 2;
+    display: grid;
+    grid-gap: 0.2em;
+    grid-template-rows: 1fr 1fr;
 
-  /deep/ img {
-    max-height: 100%;
-    object-fit: cover;
-    flex: 1;
-    margin-right: 1rem;
-    /* overflow: hidden; */
-    width: 100%;
+    .container-image {
+      height: 100%;
+      position: relative;
+
+      /deep/ img {
+        max-height: 100%;
+        object-fit: contain;
+        flex: 1;
+        margin-right: 1rem;
+        /* overflow: hidden; */
+        width: 100%;
+      }
+    }
+  }
+
+  .main {
+    .head {
+      display: flex;
+    }
   }
 }
 </style>
