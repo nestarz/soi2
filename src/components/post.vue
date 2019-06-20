@@ -98,10 +98,10 @@ export default {
       .logo {
         height: 30px;
         width: 30px;
+        margin-right: 5px;
       }
 
       .title {
-        margin-left: 5px;
 
         .name {
           font-weight: 600;

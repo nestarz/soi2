@@ -20,7 +20,7 @@
     grid-gap: 5px;
     margin-bottom: 40px;
 
-    @media only screen and (min-width: 600px) {
+    @media all and (min-width: 600px) {
       grid-template-columns: 1fr 1fr;
     }
 

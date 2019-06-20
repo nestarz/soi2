@@ -6,31 +6,30 @@
           <span class="dot"></span>
         </g-link>
       </h1>
-      <!-- <resources-search class="search" :posts="posts" @search="results => apply(results)"/> -->
     </header>
-    <resources-tags class="tags" ref="tags" :tags="tags" @select="selected => fetch(selected)"/>
-    <resources-posts
-      class="posts"
-      ref="posts"
-      :posts="search || posts"
-      @select="post => highlight(post)"
-      v-on:scroll.native="event => handleScroll(event, 'tags')"
-    />
-    <div class="highlight" v-if="false">{{ highlighted.name }}</div>
+    <tags class="tags" ref="tags" :tags="tags" @select="fetch"/>
+    <div class="posts" ref="posts" v-on:scroll="event => handleScroll(event, 'tags')">
+      <posts :posts="search || posts" @select="highlight"/>
+      <ClientOnly>
+        <infinite-loading @infinite="infiniteHandler" v-if="$page"></infinite-loading>
+      </ClientOnly>
+    </div>
   </div>
 </template>
 
+
 <script>
 import Fuse from "fuse.js";
-import ResourcesTags from "~/components/tags.vue";
-import ResourcesPosts from "~/components/posts.vue";
-import ResourcesSearch from "~/components/search.vue";
+import Tags from "~/components/tags.vue";
+import Posts from "~/components/posts.vue";
+import Search from "~/components/search.vue";
 
 export default {
   components: {
-    ResourcesTags,
-    ResourcesPosts,
-    ResourcesSearch
+    Tags,
+    Posts,
+    Search,
+    InfiniteLoading: () => import("vue-infinite-loading")
   },
   data() {
     return {
@@ -44,6 +43,26 @@ export default {
     this.fetch();
   },
   methods: {
+    async infiniteHandler($state) {
+      try {
+        const results = await this.$fetch(
+          "/ressources/" + (this.$page.ressources.pageInfo.currentPage + 1)
+        );
+        if (results.data.ressources.edges.length > 0) {
+          this.$page.ressources.pageInfo.currentPage =
+            this.$page.ressources.pageInfo.currentPage + 1;
+          this.$page.ressources.edges = this.$page.ressources.edges.concat(
+            results.data.ressources.edges
+          );
+          $state.loaded();
+          this.fetch();
+        } else {
+          $state.complete();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
     handleScroll(event, ref) {
       this.$refs[ref].$el.scrollTop = event.target.scrollTop;
     },
@@ -63,9 +82,7 @@ export default {
         .filter(post => filters.every(tag => post.tags.indexOf(tag) > -1));
     },
     fetchTags(filters = []) {
-      const tags = this.$page.ressources.edges.flatMap(
-        ({ node: post }) => post.tags
-      );
+      const tags = this.$page.tags.edges.flatMap(({ node: post }) => post.tags);
       const poststags = this.posts.flatMap(post => post.tags);
       this.tags = poststags.reduce((obj, num) => {
         obj[num] = ++obj[num] || 1;
@@ -84,10 +101,10 @@ export default {
 .index {
   display: grid;
   grid-template-areas:
-    "a b b"
-    "a c c"
+    "b b b"
     "a c c";
-  grid-template-rows: 0fr 1fr 1fr;
+  grid-template-columns: 0.2fr 0.8fr;
+  grid-template-rows: 0 1fr;
   grid-gap: 5px;
   height: 100vh;
 
@@ -100,7 +117,6 @@ export default {
   }
 
   .tags {
-    overflow: auto;
     scrollbar-width: none;
     grid-area: a;
 
@@ -110,8 +126,16 @@ export default {
   }
 
   .posts {
-    overflow: auto;
     grid-area: c;
+  }
+
+  .posts,
+  .tags {
+    overflow: auto;
+
+    @media print {
+      overflow: none;
+    }
   }
 
   .header {
@@ -122,7 +146,7 @@ export default {
     z-index: 99;
     padding: 5px;
     mix-blend-mode: difference;
-    
+
     h1 {
       display: flex;
       justify-content: center;
@@ -149,12 +173,22 @@ export default {
 </style>
 
 <page-query>
-query Ressources {
+query Ressources($page: Int) {
+  tags: allRessources(
+    sortBy: "category", 
+    order: DESC, 
+  ) {
+    edges {
+      node {
+        tags
+      }
+    }
+  }
   ressources: allRessources(
     sortBy: "category", 
     order: ASC, 
-    perPage: 1000, 
-    page: 1,
+    perPage: 20, 
+    page: $page,
   ) @paginate {
     pageInfo {
       totalPages

@@ -9,7 +9,7 @@
     </header>
     <tags class="tags" ref="tags" :tags="tags" @select="fetch"/>
     <div class="posts" ref="posts" v-on:scroll="event => handleScroll(event, 'tags')">
-      <posts :posts="search || posts" :masonry="true" @select="highlight"/>
+      <posts :posts="search || posts" @select="highlight"/>
       <ClientOnly>
         <infinite-loading @infinite="infiniteHandler" v-if="$page"></infinite-loading>
       </ClientOnly>
@@ -120,23 +120,14 @@ export default {
 .index {
   display: grid;
   grid-template-areas:
-    "a b b"
-    "a c c"
+    "b b b"
     "a c c";
-  grid-template-rows: 0fr 1fr 1fr;
+  grid-template-columns: 0.2fr 0.8fr;
+  grid-template-rows: 0 1fr;
   grid-gap: 5px;
   height: 100vh;
 
-  @media only screen and (orientation: landscape) {
-    grid-template-areas:
-      "b b b"
-      "a c c";
-    grid-template-columns: 0.2fr 0.8fr;
-    grid-template-rows: 0 1fr;
-  }
-
   .tags {
-    overflow: auto;
     scrollbar-width: none;
     grid-area: a;
 
@@ -146,8 +137,16 @@ export default {
   }
 
   .posts {
-    overflow: auto;
     grid-area: c;
+  }
+
+  .posts,
+  .tags {
+    overflow: auto;
+
+    @media print {
+      overflow: visible;
+    }
   }
 
   .header {
