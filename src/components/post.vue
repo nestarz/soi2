@@ -22,10 +22,10 @@
               <span class="alias" v-else-if="props.alias">@{{ props.alias }}</span>
             </a>
             <div class="location">
-              <template v-if="props.alias">@{{ props.alias }}</template>
-              <template
+              <span class="alias" v-if="props.alias">@{{ props.alias }}</span>
+              <span
                 v-if="props.location"
-              >{{ typeof props.location === 'object' ? `${props.location.city}${props.location.country && props.location.city ? ", " : ""}${props.location.country}` : props.location }}</template>
+              >{{ typeof props.location === 'object' ? `${props.location.city}${props.location.country && props.location.city ? ", " : ""}${props.location.country}` : props.location }}</span>
               <div v-for="author in props.authors" :key="author">{{ author }}</div>
             </div>
           </div>
@@ -70,7 +70,7 @@ export default {
   &.container {
     grid-row-start: span 2;
     display: grid;
-    grid-gap: 0.2em;
+    grid-gap: 5px;
     grid-template-rows: 1fr 1fr;
 
     .container-image {
@@ -81,16 +81,40 @@ export default {
         max-height: 100%;
         object-fit: contain;
         flex: 1;
-        margin-right: 1rem;
-        /* overflow: hidden; */
         width: 100%;
       }
     }
   }
 
   .main {
+    line-height: 1.18em;
+
     .head {
       display: flex;
+      align-items: center;
+      line-height: 1;
+      margin-bottom: 5px;
+
+      .logo {
+        height: 30px;
+        width: 30px;
+      }
+
+      .title {
+        margin-left: 5px;
+
+        .name {
+          font-weight: 600;
+        }
+
+        .location {
+          font-size: 75%;
+
+          .alias {
+            margin-right: 5px;
+          }
+        }
+      }
     }
   }
 }

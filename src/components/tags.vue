@@ -52,7 +52,7 @@ nav {
   margin: 0;
   columns: 1;
   
-  @media screen and (min-width: 100px) {
+  @media screen and (min-width: 600px) {
     columns: 2;
   }
 

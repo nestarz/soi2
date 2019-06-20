@@ -7,14 +7,8 @@
       </h1>
     </header>
     <tags class="tags" ref="tags" :tags="tags" @select="fetch"/>
-    <div class="posts">
-      <posts
-        ref="posts"
-        :posts="search || posts"
-        :masonry="true"
-        @select="highlight"
-        v-on:scroll.native="event => handleScroll(event, 'tags')"
-      />
+    <div class="posts" ref="posts" v-on:scroll="event => handleScroll(event, 'tags')">
+      <posts :posts="search || posts" :masonry="true" @select="highlight"/>
       <ClientOnly>
         <infinite-loading @infinite="infiniteHandler" v-if="$page"></infinite-loading>
       </ClientOnly>
@@ -54,7 +48,8 @@ export default {
           "/tweets/" + (this.$page.tweets.pageInfo.currentPage + 1)
         );
         if (results.data.tweets.edges.length > 0) {
-          this.$page.tweets.pageInfo.currentPage = this.$page.tweets.pageInfo.currentPage + 1;
+          this.$page.tweets.pageInfo.currentPage =
+            this.$page.tweets.pageInfo.currentPage + 1;
           this.$page.tweets.edges = this.$page.tweets.edges.concat(
             results.data.tweets.edges
           );
@@ -124,13 +119,21 @@ export default {
 .index {
   display: grid;
   grid-template-areas:
-    "b a a"
-    "b c c"
-    "b c c";
-  grid-template-rows: 0.19fr 1fr 1fr;
+    "a b b"
+    "a c c"
+    "a c c";
+  grid-template-rows: 0fr 1fr 1fr;
   grid-gap: 5px;
   height: 100vh;
 
+  @media only screen and (orientation: landscape) {
+    grid-template-areas:
+      "b b b"
+      "a c c";
+    grid-template-columns: 0.2fr 0.8fr;
+    grid-template-rows: 0 1fr;
+  }
+  
   .tags {
     overflow: auto;
     scrollbar-width: none;
@@ -153,14 +156,11 @@ export default {
     justify-content: space-between;
     z-index: 99;
     padding: 5px;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
     h1 {
       display: flex;
       justify-content: center;
-      transform: rotate(180deg);
-      font-size: 12vmin;
-      line-height: 10vmin;
+      font-size: 3em;
+      line-height: 1;
     }
 
     .search {
@@ -169,12 +169,6 @@ export default {
       transform: rotate(-90deg);
       float: left;
     }
-  }
-
-  @media only screen and (orientation: landscape) {
-    grid-template-areas: "b a c";
-    grid-template-columns: 0fr 0.2fr 0.8fr;
-    grid-template-rows: 1fr;
   }
 }
 </style>
