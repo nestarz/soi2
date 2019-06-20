@@ -1,12 +1,21 @@
 <template>
-  <div class="index">
-    <div class="projects"></div>
-    <div class="name">Elias Rhouzlane</div>
-    <div class="ressources">
-      <g-link to="/ressources">Ressources</g-link>
-      <g-link to="/tweets">Tweets</g-link>
+  <header class="header">
+    <h1>
+      <span class="dot"></span>
+    </h1>
+    <div>
+      <h1>
+        <g-link to="/ressources">Ressources</g-link>
+      </h1>
+      <h1>
+        <g-link to="/tweets">Tweets</g-link>
+      </h1>
+      <h1>
+        <g-link to="">Me</g-link>
+      </h1>
     </div>
-  </div>
+    <!-- <resources-search class="search" :posts="posts" @search="results => apply(results)"/> -->
+  </header>
 </template>
 
 <script>
@@ -16,8 +25,7 @@ export default {
   metaInfo: {
     title: "Index"
   },
-  components: {
-  },
+  components: {},
   data() {
     return {
       social: author.social
@@ -32,17 +40,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.index {
+.header {
+  grid-area: b;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100%;
-  .ressources {
+  justify-content: space-between;
+  z-index: 99;
+  padding: 50px;
+
+  h1 {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    font-size: 2em;
+    line-height: 1;
   }
-  .name {
-    padding: 1em;
+
+  .dot {
+    height: 5vmax;
+    width: 5vmax;
+    background-color: rgb(255, 0, 0);
+    border-radius: 50%;
+    display: inline-block;
   }
 }
 </style>

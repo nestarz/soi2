@@ -1,9 +1,10 @@
 <template>
   <div class="index">
     <header class="header">
-      <h1>Les Tweets</h1>
       <h1>
-        <g-link to="/">ER</g-link>
+        <g-link to="/">
+          <span class="dot"></span>
+        </g-link>
       </h1>
     </header>
     <tags class="tags" ref="tags" :tags="tags" @select="fetch"/>
@@ -133,7 +134,7 @@ export default {
     grid-template-columns: 0.2fr 0.8fr;
     grid-template-rows: 0 1fr;
   }
-  
+
   .tags {
     overflow: auto;
     scrollbar-width: none;
@@ -156,6 +157,8 @@ export default {
     justify-content: space-between;
     z-index: 99;
     padding: 5px;
+    mix-blend-mode: difference;
+
     h1 {
       display: flex;
       justify-content: center;
@@ -163,6 +166,14 @@ export default {
       line-height: 1;
     }
 
+    .dot {
+      height: 5vmax;
+      width: 5vmax;
+      background-color: rgb(255, 0, 0);
+      border-radius: 50%;
+      display: inline-block;
+      margin: 1em;
+    }
     .search {
       flex: 0.5;
       pointer-events: all;

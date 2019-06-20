@@ -1,16 +1,14 @@
 <template>
   <div class="index">
     <header class="header">
-      <h1>Ressources</h1>
-      <h1><g-link to="/">ER</g-link></h1>
+      <h1>
+        <g-link to="/">
+          <span class="dot"></span>
+        </g-link>
+      </h1>
       <!-- <resources-search class="search" :posts="posts" @search="results => apply(results)"/> -->
     </header>
-    <resources-tags
-      class="tags"
-      ref="tags"
-      :tags="tags"
-      @select="selected => fetch(selected)"
-    />
+    <resources-tags class="tags" ref="tags" :tags="tags" @select="selected => fetch(selected)"/>
     <resources-posts
       class="posts"
       ref="posts"
@@ -65,8 +63,9 @@ export default {
         .filter(post => filters.every(tag => post.tags.indexOf(tag) > -1));
     },
     fetchTags(filters = []) {
-      const tags = this.$page.ressources.edges
-        .flatMap(({ node: post }) => post.tags);
+      const tags = this.$page.ressources.edges.flatMap(
+        ({ node: post }) => post.tags
+      );
       const poststags = this.posts.flatMap(post => post.tags);
       this.tags = poststags.reduce((obj, num) => {
         obj[num] = ++obj[num] || 1;
@@ -85,12 +84,20 @@ export default {
 .index {
   display: grid;
   grid-template-areas:
-    "b a a"
-    "b c c"
-    "b c c";
-  grid-template-rows: 0.5fr 1fr 1fr;
+    "a b b"
+    "a c c"
+    "a c c";
+  grid-template-rows: 0fr 1fr 1fr;
   grid-gap: 5px;
   height: 100vh;
+
+  @media only screen and (orientation: landscape) {
+    grid-template-areas:
+      "b b b"
+      "a c c";
+    grid-template-columns: 0.2fr 0.8fr;
+    grid-template-rows: 0 1fr;
+  }
 
   .tags {
     overflow: auto;
@@ -114,28 +121,29 @@ export default {
     justify-content: space-between;
     z-index: 99;
     padding: 5px;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
+    mix-blend-mode: difference;
+    
     h1 {
       display: flex;
       justify-content: center;
-      transform: rotate(180deg);
-      font-size: 12vmin;
-      line-height: 10vmin;
+      font-size: 3em;
+      line-height: 1;
     }
 
+    .dot {
+      height: 5vmax;
+      width: 5vmax;
+      background-color: rgb(255, 0, 0);
+      border-radius: 50%;
+      display: inline-block;
+      margin: 1em;
+    }
     .search {
       flex: 0.5;
       pointer-events: all;
       transform: rotate(-90deg);
       float: left;
     }
-  }
-
-  @media only screen and (orientation: landscape) {
-    grid-template-areas: "b a c";
-    grid-template-columns: 0fr 0.2fr 0.8fr;
-    grid-template-rows: 1fr;
   }
 }
 </style>
