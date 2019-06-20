@@ -25,16 +25,18 @@ export default {
     if (props.screenshot) {
       a = a + 1;
       const res = [
-        <div class="container-image">
-          <g-image
-            class="image"
-            quality="20"
-            blur="1"
-            width="20"
-            src={props.screenshot}
-          />
-        </div>,
-        <PostContent {...{ props: props }} />
+        <div class="container">
+          <div class="container-image">
+            <g-image
+              class="image"
+              quality="20"
+              blur="1"
+              width="20"
+              src={props.screenshot}
+            />
+          </div>
+          <PostContent {...{ props: props }} />
+        </div>
       ];
       return res.reverse();
     }
@@ -44,8 +46,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  grid-row-start: span 2;
+}
 .container-image {
-  min-height: 10vmax;
 
   /* &:hover {
 
@@ -64,7 +68,7 @@ export default {
     max-height: 100%;
     bottom: 0;
     height: 100%;
-    min-height: 20vmax;
+    height: 12vmax;
 
     @media only screen and (orientation: landscape) {
       object-fit: contain;
