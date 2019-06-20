@@ -23,6 +23,10 @@
     @media only screen and (orientation: landscape) {
       grid-template-columns: 1fr 1fr 1fr;
     }
+
+    & > /deep/ * {
+      min-height: 10vw;
+    }
   }
 }
 </style>

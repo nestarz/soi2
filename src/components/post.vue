@@ -48,32 +48,22 @@ export default {
 <style lang="scss" scoped>
 .container {
   grid-row-start: span 2;
+  display: grid;
+  grid-gap: 0.2em;
+  grid-template-rows: 1fr 1fr;
 }
 .container-image {
-
-  /* &:hover {
-
-    & /deep/ img {
-      position: absolute;
-      left: 0;
-      pointer-events: none;
-      width: 50vw;
-    }
-  } */
+  height: 100%;
+  position: relative;
 
   /deep/ img {
-    position: relative;
-    object-fit: cover;
-    width: 100%;
-    max-height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
     bottom: 0;
+    left: 0;
+    margin: auto;
     height: 100%;
-    height: 12vmax;
-
-    @media only screen and (orientation: landscape) {
-      object-fit: contain;
-      min-height: 10vmax;
-    }
   }
 }
 </style>
