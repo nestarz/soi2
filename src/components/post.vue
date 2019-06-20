@@ -57,13 +57,12 @@ export default {
   position: relative;
 
   /deep/ img {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    height: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    flex: 1;
+    margin-right: 1rem;
+    /* overflow: hidden; */
+    width: 100%;
   }
 }
 </style>

@@ -20,7 +20,11 @@
     grid-gap: 0.2rem;
     margin-bottom: 40px;
 
-    @media only screen and (orientation: landscape) {
+    @media only screen and (min-width: 600px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media only screen and (min-width: 1000px) {
       grid-template-columns: 1fr 1fr 1fr;
     }
 
