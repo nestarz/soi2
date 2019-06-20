@@ -16,7 +16,7 @@
 .posts {
   &.grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-gap: 0.2rem;
     margin-bottom: 40px;
 

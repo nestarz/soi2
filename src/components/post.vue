@@ -23,7 +23,7 @@ export default {
   },
   render(h, { props }) {
     if (props.screenshot) {
-      a = a+1;
+      a = a + 1;
       const res = [
         <div class="container-image">
           <g-image
@@ -35,7 +35,7 @@ export default {
           />
         </div>,
         <PostContent {...{ props: props }} />
-      ]
+      ];
       return res.reverse();
     }
     return [<PostContent {...{ props: props }} />];
@@ -45,7 +45,7 @@ export default {
 
 <style lang="scss" scoped>
 .container-image {
-  min-height: 10vw;
+  min-height: 10vmax;
 
   /* &:hover {
 
@@ -59,12 +59,17 @@ export default {
 
   /deep/ img {
     position: relative;
-    object-fit: contain;
+    object-fit: cover;
     width: 100%;
     max-height: 100%;
     bottom: 0;
     height: 100%;
-    min-height: 10vw;
+    min-height: 20vmax;
+
+    @media only screen and (orientation: landscape) {
+      object-fit: contain;
+      min-height: 10vmax;
+    }
   }
 }
 </style>
