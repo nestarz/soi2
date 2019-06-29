@@ -1,14 +1,7 @@
-<template>
+<template functional>
   <div>
     <div class="posts grid">
-      <resource-post
-        class="post"
-        :equal="equal"
-        v-for="(post, index) in posts"
-        :key="post.id || `post-${index}`"
-        v-bind="post"
-        @click="$emit('select', post)"
-      />
+      <slot />
     </div>
   </div>
 </template>
@@ -40,9 +33,7 @@
 import ResourcePost from "~/components/post.vue";
 
 export default {
-  components: {
-    ResourcePost
-  },
+  functional: true,
   props: {
     posts: Array,
     equal: Boolean

@@ -133,7 +133,7 @@ export default {
   form {
     display: grid;
     grid-auto-rows: 1fr;
-    grid-gap: 5px;
+    grid-gap: 1rem;
     label {
       display: grid;
       grid-template-columns: 0.25fr 1fr;

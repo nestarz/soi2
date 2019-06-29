@@ -53,7 +53,7 @@ nav {
   columns: 1;
   
   @media screen and (min-width: 600px) {
-    columns: 2;
+    columns: 2 7rem;
   }
 
   .tag {

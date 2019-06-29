@@ -1,7 +1,7 @@
 <template functional>
-  <div class="bookmark" :class="{ container: props.screenshot }">
+  <div class="bookmark" :class="{ container: props.screenshot, equal: props.equal }">
     <div class="container-image" v-if="props.screenshot">
-      <g-image class="image" quality="20" blur="1" width="20" :src="props.screenshot"/>
+      <g-image class="image" quality="20" blur="1" width="20" :src="props.screenshot" />
     </div>
     <div class="main">
       <div class="header">
@@ -21,7 +21,7 @@
               <span class="name" v-if="props.name">{{ props.name }}</span>
               <span class="alias" v-else-if="props.alias">@{{ props.alias }}</span>
             </a>
-            <div class="location">
+            <div class="location" v-if="props.alias || props.location">
               <span class="alias" v-if="props.alias">@{{ props.alias }}</span>
               <span
                 v-if="props.location"
@@ -34,7 +34,7 @@
       <div class="main">
         <div
           class="description"
-        >{{ props.description.length > 249 ? props.description.replace(/^(.{249}[^\s]*).*/, "$1...") : props.description }}</div>
+        >{{ props.description.length > 149 ? props.description.replace(/^(.{149}[^\s]*).*/, "$1...") : props.description }}</div>
         <div class="tags">
           <!-- <span class="category">{{ `${props.category} ` }}</span> -->
           <span v-for="tag in props.tags" :key="tag">{{ `${tag} ` }}</span>
@@ -60,7 +60,8 @@ export default {
     screenshot: String,
     slug: String,
     index: Number,
-    logo: String
+    logo: String,
+    equal: Boolean,
   }
 };
 </script>
@@ -70,15 +71,26 @@ export default {
   &.container {
     grid-row-start: span 2;
     display: grid;
-    grid-gap: 5px;
-    grid-template-rows: 1fr 1fr;
+    grid-gap: 1rem;
+    grid-template-rows: auto 1fr;
+
+    &.equal {
+      grid-template-rows: 1fr 1fr;
+
+      .container-image {
+        /deep/ img {
+          max-height: 100%;
+        }
+      }
+    }
 
     .container-image {
       height: 100%;
       position: relative;
+      user-select: none;
 
       /deep/ img {
-        max-height: 100%;
+        max-height: 33vh;
         object-fit: contain;
         flex: 1;
         width: 100%;
@@ -88,6 +100,17 @@ export default {
 
   .main {
     line-height: 1.18em;
+
+    .description {
+      word-break: break-word;
+    }
+
+    .tags {
+      font-size: 70%;
+      span:not(:last-child) {
+        margin-right: 2px;
+      }
+    }
 
     .head {
       display: flex;
@@ -102,13 +125,13 @@ export default {
       }
 
       .title {
-
         .name {
           font-weight: 600;
         }
 
         .location {
           font-size: 75%;
+          margin-top: 0.1rem;
 
           .alias {
             margin-right: 5px;

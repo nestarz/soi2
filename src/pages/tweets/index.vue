@@ -1,15 +1,15 @@
 <template>
   <div class="index">
     <header class="header">
+      <g-link to="/">about</g-link>
       <h1>
-        <g-link to="/">
-          <span class="dot"></span>
-        </g-link>
+        <g-link to="/">tweets</g-link>
       </h1>
+      <g-link to="/">ressources</g-link>
     </header>
-    <tags class="tags" ref="tags" :tags="tags" @select="fetch"/>
+    <tags class="tags" ref="tags" :tags="tags" @select="filter" />
     <div class="posts" ref="posts" v-on:scroll="event => handleScroll(event, 'tags')">
-      <posts :posts="search || posts" @select="highlight"/>
+      <posts :posts="search || posts" @select="highlight" :equal="true" />
       <ClientOnly>
         <infinite-loading @infinite="infiniteHandler" v-if="$page"></infinite-loading>
       </ClientOnly>
@@ -36,7 +36,7 @@ export default {
       tags: null,
       posts: null,
       highlighted: null,
-      selected: []
+      filters: []
     };
   },
   created() {
@@ -72,12 +72,15 @@ export default {
     apply(results) {
       this.search = results;
     },
-    fetch(filters = []) {
-      this.selected = filters;
-      this.fetchPosts(filters);
-      this.fetchTags(filters);
+    filter(tags) {
+      this.filters = tags;
+      this.fetch();
     },
-    fetchPosts(filters = []) {
+    fetch() {
+      this.fetchPosts();
+      this.fetchTags();
+    },
+    fetchPosts() {
       this.posts = this.$page.tweets.edges
         .map(({ node: tweet }) => {
           const [description, url, ...others] = tweet.full_text.split(
@@ -101,7 +104,7 @@ export default {
           };
         })
         .filter(
-          post => !this.selected.length || this.selected.includes(post.name)
+          post => !this.filters.length || this.filters.includes(post.name)
         );
     },
     fetchTags() {
@@ -123,9 +126,18 @@ export default {
     "b b b"
     "a c c";
   grid-template-columns: 0.2fr 0.8fr;
-  grid-template-rows: 0 1fr;
-  grid-gap: 5px;
+  grid-template-rows: auto 1fr;
+  grid-gap: 1rem;
   height: 100vh;
+  
+
+  @media only screen and (orientation: landscape) {
+    grid-template-areas:
+      "b c c"
+      "a c c";
+    grid-template-columns: 0.2fr 0.8fr;
+    grid-template-rows: auto 1fr;
+  }
 
   .tags {
     scrollbar-width: none;
@@ -138,31 +150,40 @@ export default {
 
   .posts {
     grid-area: c;
+    
+    
+    padding: 0 1rem;
+  }
+
+  .tags,
+  .header {
+    padding-left: 20px;
   }
 
   .posts,
-  .tags {
+  .header {
+    padding-top: 20px;
+  }
+
+  .posts,
+  .tags,
+  .header {
     overflow: auto;
 
     @media print {
-      overflow: visible;
+      overflow: none;
     }
   }
 
   .header {
     grid-area: b;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column;
     justify-content: space-between;
     z-index: 99;
-    padding: 5px;
-    mix-blend-mode: difference;
 
     h1 {
-      display: flex;
-      justify-content: center;
-      font-size: 3em;
-      line-height: 1;
+      font-weight: 600;
     }
 
     .dot {
@@ -173,6 +194,7 @@ export default {
       display: inline-block;
       margin: 1em;
     }
+
     .search {
       flex: 0.5;
       pointer-events: all;

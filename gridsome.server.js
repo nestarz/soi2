@@ -3,20 +3,30 @@ const path = require('path');
 const glob = require('globby');
 const jsYaml = require('js-yaml');
 const slugify = require('@sindresorhus/slugify');
+const { imageType } = require('gridsome/lib/graphql/types/image');
 const screenshot = require('./src/functions/screenshot');
 const twitter = require('./src/functions/twitter');
-const { imageType } = require('gridsome/lib/graphql/types/image');
 
 function server(api) {
   api.loadSource(async (store) => {
-    const tweetCollection = store.addContentType({
-      typeName: 'Tweets',
-    });
+    const tweetCollection = store.addContentType('Tweets');
+    const authors = store.addContentType('Author');
+
+    tweetCollection.addReference('authors', 'Author');
+
     const tweets = await twitter(2000, './content/twitter/statuses/user_timeline.json');
     tweets.forEach((parentTweet) => {
       const tweet = parentTweet.retweeted_status
         ? parentTweet.retweeted_status
         : parentTweet;
+
+      authors.addNode({
+        id: tweet.user.name,
+        title: tweet.user.name,
+        path: `tweet/user/${tweet.user.name}`,
+      });
+
+
       tweetCollection.addNode({
         id: tweet.id,
         path: `tweet/${tweet.id}`,
@@ -30,6 +40,7 @@ function server(api) {
           user: tweet.user,
           entities: tweet.entities,
           extended_entities: tweet.extended_entities,
+          authors: [tweet.user.name],
         },
       });
     });
