@@ -1,11 +1,12 @@
 <template>
   <div class="index">
     <header class="header">
-      <g-link to="/">about</g-link>
+      <g-link to="/">..</g-link>
+      <g-link to="/about">about</g-link>
       <h1>
-        <g-link to="/">tweets</g-link>
+        <g-link to="/tweets">tweets</g-link>
       </h1>
-      <g-link to="/">ressources</g-link>
+      <g-link to="/ressources">ressources</g-link>
     </header>
     <tags class="tags" ref="tags" :tags="tags" @select="filter" />
     <div class="posts" ref="posts" v-on:scroll="event => handleScroll(event, 'tags')">

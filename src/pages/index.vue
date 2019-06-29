@@ -1,6 +1,7 @@
 <template>
   <div class="index">
     <header class="header">
+      <g-link to="/">.</g-link>
       <g-link to>about</g-link>
       <g-link to="/tweets">tweets</g-link>
       <g-link to="/ressources">ressources</g-link>
@@ -8,10 +9,21 @@
     <div class="tags" ref="tags" />
     <div class="posts" ref="posts">
       <grid>
-        <span v-for="i in [1,2,3,4]" :key="i"></span>
-        <div
-          class="description"
-        >Currently focusing on Interaction and Object Design exploring the interaction of objects, people, art, technology and science using form and code with a mix of analog and digital materials.</div>
+        <span v-for="i in [1,2,3,4, 5, 6,7,8,9]" :key="i"></span>
+        <span class="description">
+          Currently focusing on Interaction and Object Design exploring the interaction of objects, people, art, technology and science using form and code with a mix of analog and digital materials.
+          <div
+            class="lol"
+            style="
+    position: absolute;
+    background: white;
+    width: 30vw;
+    height: 10vw;
+    transform: rotate3d(1, 1, 1, 417deg) matrix(1, 0, 0, 1, 0, 0);
+    overflow: hidden;
+"
+          ></div>
+        </span>
       </grid>
     </div>
   </div>
@@ -59,9 +71,16 @@ export default {
     grid-area: c;
     padding: 0 1rem;
 
+    span {
+      min-height: 10vw;
+      padding: 1rem;
+    }
+
     .description {
-      grid-row-start: 2;
-      grid-column-start: 1;
+      background: #eee;
+      grid-row: 2 / span 2;
+      grid-column-start: 2;
+      transform: rotate3d(1, 1, 1, 417deg) matrix(1, 0, 0, 1, 0, 0);
     }
   }
 

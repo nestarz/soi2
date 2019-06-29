@@ -1,15 +1,17 @@
 <template>
   <div class="index">
     <header class="header">
+      <g-link to="/">..</g-link>
+
       <h2>
-        <g-link to="/">about</g-link>
+        <g-link to="/about">about</g-link>
       </h2>
       <h2>
-        <g-link to="/">tweets</g-link>
+        <g-link to="/tweets">tweets</g-link>
       </h2>
 
       <h1>
-        <g-link to="/">Ressources</g-link>
+        <g-link to="/ressources">ressources</g-link>
       </h1>
     </header>
     <tags class="tags" ref="tags" :tags="tags" @select="fetch" />
@@ -108,7 +110,6 @@ export default {
   grid-template-rows: auto 1fr;
   grid-gap: 5px;
   height: 100vh;
-  
 
   @media only screen and (orientation: landscape) {
     grid-template-areas:
@@ -129,8 +130,7 @@ export default {
 
   .posts {
     grid-area: c;
-    
-    
+
     padding: 0 1rem;
   }
 
