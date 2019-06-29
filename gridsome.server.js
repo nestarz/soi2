@@ -21,9 +21,9 @@ function server(api) {
         : parentTweet;
 
       authors.addNode({
-        id: tweet.user.name,
-        title: tweet.user.name,
-        path: `tweet/user/${tweet.user.name}`,
+        id: tweet.user.screen_name,
+        title: tweet.user.screen_name,
+        path: `tweet/user/${tweet.user.screen_name}`,
       });
 
 
@@ -40,7 +40,7 @@ function server(api) {
           user: tweet.user,
           entities: tweet.entities,
           extended_entities: tweet.extended_entities,
-          authors: [tweet.user.name],
+          authors: [tweet.user.screen_name],
         },
       });
     });
