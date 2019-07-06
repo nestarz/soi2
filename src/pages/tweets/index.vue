@@ -1,27 +1,22 @@
 <template>
-  <div class="index">
-    <header class="header">
-      <g-link to="/">..</g-link>
-      <g-link to="/about">about</g-link>
-      <h1>
-        <g-link to="/tweets">tweets</g-link>
-      </h1>
-      <g-link to="/ressources">ressources</g-link>
-    </header>
-    <tags class="tags" ref="tags" :tags="tags" @select="filter" />
-    <div class="posts" ref="posts" v-on:scroll="event => handleScroll(event, 'tags')">
+  <layout>
+    <template slot="sidebar" >
+      <tags :tags="tags" @select="filter" />
+    </template>
+    <div>
       <posts :posts="search || posts" @select="highlight" :equal="true" />
       <ClientOnly>
         <infinite-loading @infinite="infiniteHandler" v-if="$page"></infinite-loading>
       </ClientOnly>
     </div>
-  </div>
+  </layout>
 </template>
 
 <script>
 import Posts from "~/components/posts.vue";
 import Tags from "~/components/tags.vue";
 import Search from "~/components/search.vue";
+import Layout from "~/layouts/default.vue";
 
 const twitterLinkRegex = /(?:<\w+.*?>|[^=!:'"\/]|)((?:https?:\/\/|www\.)[-\w]+(?:\.[-\w]+)*(?::\d+)?(?:\/(?:(?:[~\w\+%-]|(?:[,.;@:][^\s$]))+)?)*(?:\?[\w\+%&=.;:-]+)?(?:\#[\w\-\.]*)?)(?:\p{P}|\s|<|$)/;
 export default {
@@ -29,7 +24,8 @@ export default {
     Posts,
     Tags,
     Search,
-    InfiniteLoading: () => import("vue-infinite-loading")
+    InfiniteLoading: () => import("vue-infinite-loading"),
+    Layout,
   },
   data() {
     return {
@@ -63,9 +59,6 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    },
-    handleScroll(event, ref) {
-      this.$refs[ref].$el.scrollTop = event.target.scrollTop;
     },
     highlight(post) {
       this.highlighted = post;
@@ -119,92 +112,6 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.index {
-  display: grid;
-  grid-template-areas:
-    "b b b"
-    "a c c";
-  grid-template-columns: 0.2fr 0.8fr;
-  grid-template-rows: auto 1fr;
-  grid-gap: 1rem;
-  height: 100vh;
-  
-
-  @media only screen and (orientation: landscape) {
-    grid-template-areas:
-      "b c c"
-      "a c c";
-    grid-template-columns: 0.2fr 0.8fr;
-    grid-template-rows: auto 1fr;
-  }
-
-  .tags {
-    scrollbar-width: none;
-    grid-area: a;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
-  .posts {
-    grid-area: c;
-    
-    
-    padding: 0 1rem;
-  }
-
-  .tags,
-  .header {
-    padding-left: 20px;
-  }
-
-  .posts,
-  .header {
-    padding-top: 20px;
-  }
-
-  .posts,
-  .tags,
-  .header {
-    overflow: auto;
-
-    @media print {
-      overflow: none;
-    }
-  }
-
-  .header {
-    grid-area: b;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    z-index: 99;
-
-    h1 {
-      font-weight: 600;
-    }
-
-    .dot {
-      height: 5vmax;
-      width: 5vmax;
-      background-color: rgb(255, 0, 0);
-      border-radius: 50%;
-      display: inline-block;
-      margin: 1em;
-    }
-
-    .search {
-      flex: 0.5;
-      pointer-events: all;
-      transform: rotate(-90deg);
-      float: left;
-    }
-  }
-}
-</style>
 
 <page-query>
 query Tweets($page: Int) {

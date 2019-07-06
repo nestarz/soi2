@@ -28,5 +28,5 @@ export default function (Vue, {
   Vue.use(VueMasonry);
 
   // Set default layout as a global component
-  Vue.component('Layout', DefaultLayout);
+  Vue.component('layout', DefaultLayout);
 }
