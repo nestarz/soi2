@@ -3,5 +3,5 @@ export default {
   "siteName": "Elias Rhouzlane",
   "titleTemplate": "%s | Elias Rhouzlane",
   "siteDescription": "",
-  "version": "0.6.4"
+  "version": "0.6.5"
 }

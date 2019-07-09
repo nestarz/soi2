@@ -9,23 +9,23 @@ const twitter = require('./src/functions/twitter');
 
 function server(api) {
   api.loadSource(async (store) => {
+    const resumeCollection = store.addContentType('Resume');
+    (await glob('content/resumes/**/*.yml')).map((file) => {
+      const resource = jsYaml.load(fs.readFileSync(file, 'utf8'));
+      resource.slug = slugify(`${resource.date}`);
+      return resource;
+    }).forEach(resource => resumeCollection.addNode({
+      id: resource.slug,
+      fields: resource,
+      path: `resume/${resource.slug}`,
+    }));
+
     const tweetCollection = store.addContentType('Tweets');
-    const authors = store.addContentType('Author');
-
-    tweetCollection.addReference('authors', 'Author');
-
     const tweets = await twitter(2000, './content/twitter/statuses/user_timeline.json');
     tweets.forEach((parentTweet) => {
       const tweet = parentTweet.retweeted_status
         ? parentTweet.retweeted_status
         : parentTweet;
-
-      authors.addNode({
-        id: tweet.user.screen_name,
-        title: tweet.user.screen_name,
-        path: `tweet/user/${tweet.user.screen_name}`,
-      });
-
 
       tweetCollection.addNode({
         id: tweet.id,
@@ -40,7 +40,6 @@ function server(api) {
           user: tweet.user,
           entities: tweet.entities,
           extended_entities: tweet.extended_entities,
-          authors: [tweet.user.screen_name],
         },
       });
     });

@@ -37,7 +37,7 @@
         >{{ props.description.length > 149 ? props.description.replace(/^(.{149}[^\s]*).*/, "$1...") : props.description }}</div>
         <div class="tags">
           <!-- <span class="category">{{ `${props.category} ` }}</span> -->
-          <span v-for="tag in props.tags" :key="tag">{{ `${tag} ` }}</span>
+          <span v-for="(tag, index) in props.tags" :key="`${tag}-${index}`">{{ `${tag} ` }}</span>
         </div>
       </div>
     </div>
@@ -57,7 +57,7 @@ export default {
     authors: Array,
     location: [Object, String],
     tags: Array,
-    screenshot: String,
+    screenshot: [Object, String],
     slug: String,
     index: Number,
     logo: String,
