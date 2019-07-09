@@ -32,7 +32,7 @@ export default {
         },
         {
           title: "about",
-          url: "/about"
+          url: "/resume/1562619188722"
         },
         {
           title: "ressources",

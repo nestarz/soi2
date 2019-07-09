@@ -108,26 +108,32 @@ records:
     fr: Éducation
     en: Education
   list:
+  # - from: '2019'
+  #   to: '2021'
+  #   title:
+  #     fr: Master Information Design
+  #     en: Master Information Design
+  #   etablishment: Design Academy Eindhoven
+  #   location: Eindhoven, Pays-bas
   - from: '2018'
-    to: Curr.
     title:
       fr: DNMADE Objet(s) et système(s) d'objet(s) céramiques
       en: DNMADE Product and Ceramics Design
     etablishment: LTAA Auguste Renoir
     location: Paris, France
-    description:
-      en: 'The DNAMDE designer in art and ceramics industry aims to train ceramic
-        designers capable of designing and producing models of shapes and decorations
-        in the sectors covered by the arts and ceramics industries: ceramic design,
-        art ceramics (single piece or small series), tableware and decoration, sanitary
-        ceramics, architectural ceramics, heritage ceramics...'
-      fr: 'Le designer DNAMDE dans les industries de l''art et de la céramique a pour
-        objectif de former des designers en céramique capables de concevoir et de
-        produire des modèles de formes et de décorations dans les secteurs couverts
-        par les industries des arts et de la céramique: design en céramique, céramique
-        d''art (pièces uniques ou petites séries), arts de la table et décoration
-        , céramiques sanitaires, céramiques architecturales, céramiques du patrimoine
-        ...'
+    # description:
+    #   en: 'The DNAMDE designer in art and ceramics industry aims to train ceramic
+    #     designers capable of designing and producing models of shapes and decorations
+    #     in the sectors covered by the arts and ceramics industries: ceramic design,
+    #     art ceramics (single piece or small series), tableware and decoration, sanitary
+    #     ceramics, architectural ceramics, heritage ceramics...'
+    #   fr: 'Le designer DNAMDE dans les industries de l''art et de la céramique a pour
+    #     objectif de former des designers en céramique capables de concevoir et de
+    #     produire des modèles de formes et de décorations dans les secteurs couverts
+    #     par les industries des arts et de la céramique: design en céramique, céramique
+    #     d''art (pièces uniques ou petites séries), arts de la table et décoration
+    #     , céramiques sanitaires, céramiques architecturales, céramiques du patrimoine
+    #     ...'
   - from: '2015'
     to: '2017'
     etablishment: Sorbonne Universités × Télécom ParisTech
@@ -149,6 +155,13 @@ records:
     fr: Éxpérience
     en: Works
   list:
+  - from: '2019'
+    to: ''
+    title:
+      en: Architect Front End
+      fr: Architecte Front End
+    etablishment: Aramisauto
+    location: Paris, France
   - from: '2018'
     to: ''
     title:

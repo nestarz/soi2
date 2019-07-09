@@ -8,17 +8,17 @@
 
 <style lang="scss" scoped>
 .grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 1rem;
+  display: block;
   margin-bottom: 40px;
 
   @media all and (min-width: 600px) {
+    display: grid;
+    grid-gap: 1rem;
     grid-template-columns: 1fr 1fr;
   }
 
   @media only screen and (min-width: 1000px) {
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
   }
 
   & > /deep/ * {
