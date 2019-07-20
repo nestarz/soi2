@@ -30,18 +30,6 @@ export default {
           title: "..",
           url: "/"
         },
-        {
-          title: "about",
-          url: "/resume/1562619188722"
-        },
-        {
-          title: "ressources",
-          url: "/ressources"
-        },
-        {
-          title: "tweets",
-          url: "/tweets"
-        }
       ]
     };
   },
@@ -121,6 +109,7 @@ export default {
 
         li {
           margin: 0;
+          font-weight: 600;
 
           a.active {
             font-weight: 600;

@@ -103,6 +103,7 @@ export default {
 
     .description {
       word-break: break-word;
+      font-size: 80%;
     }
 
     .tags {
