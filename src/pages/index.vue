@@ -14,6 +14,8 @@
     </template>
     <div class="camera">
       <webcam @cameras="setCameras" :deviceId="camera" class="video" />
+      <p>Eindhoven, Netherlands<br/>
+      +33 6 20 40 62 67</p>
     </div>
   </layout>
 </template>
@@ -81,8 +83,11 @@ export default {
   height: 610px;
   overflow: hidden;
   position: relative;
-  border-radius: 39px;
-  transform: rotate(-350deg) translateX(70%) skewX(-11deg) skewY(-41deg) scaleY(0.8);
+  /* border-radius: 39px; */
+  border-radius: 3px;
+  transform: rotate(11deg) translateX(70%) skewX(19deg) skewY(-22deg) scaleY(0.8);
+  background-color: #a9ff00;
+  filter: blur(2px);
 
   .video {
     min-width: 100%;
@@ -91,6 +96,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%) scale(-2.5, 2.5);
+    mix-blend-mode: color;
   }
 }
 </style>
