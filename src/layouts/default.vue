@@ -27,7 +27,7 @@ export default {
     return {
       links: [
         {
-          title: "..",
+          title: "eliaspourquoi",
           url: "/"
         },
       ]
@@ -43,20 +43,22 @@ export default {
 
 <style lang="scss" scoped>
 .layout {
-  display: grid;
+  display: block;
   grid-template-areas:
     "b b b"
-    "a c c";
+    "a a a"
+    "c c c";
   grid-template-columns: 0.2fr 0.8fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: min-content;
   grid-gap: 1rem;
   height: 100vh;
 
   @media only screen and (orientation: landscape) {
+    display: grid;
     grid-template-areas:
       "b c c"
       "a c c";
-    grid-template-columns: 0.2fr 0.8fr;
+    grid-template-columns: 11rem 1fr;
     grid-template-rows: auto 1fr;
   }
 

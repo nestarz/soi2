@@ -14,10 +14,7 @@ export default [
   {
     name: "home",
     path: "/",
-    component: () => import(/* webpackChunkName: "page--src--pages--index-vue" */ "/Users/elias/projects/soi/src/pages/index.vue"),
-    meta: {
-      data: true
-    }
+    component: () => import(/* webpackChunkName: "page--src--pages--index-vue" */ "/Users/elias/projects/soi/src/pages/index.vue")
   },
   {
     path: "/ressources/add",
