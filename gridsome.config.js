@@ -1,3 +1,5 @@
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable global-require */
 // This is where project configuration and plugin options are located.
@@ -15,6 +17,13 @@ module.exports = {
     lastName: 'Rhouzlane',
   },
   chainWebpack: (config) => {
+    config.plugin('monaco-editor').use(MonacoWebpackPlugin, [
+      {
+        // Languages are loaded on demand at runtime
+        languages: ['javascript'],
+      },
+    ]);
+
     config.module
       .rule('css')
       .oneOf('normal')

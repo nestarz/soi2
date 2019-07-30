@@ -10,10 +10,10 @@
       </nav>
     </header>
     <nav class="sidebar" ref="sidebar">
-      <slot name="sidebar"/>
+      <slot name="sidebar" />
     </nav>
     <main class="main" ref="main" v-on:scroll="event => handleScroll(event, 'sidebar')">
-      <slot/>
+      <slot />
     </main>
   </div>
 </template>
@@ -21,7 +21,7 @@
 <script>
 export default {
   props: {
-    url: String,
+    url: String
   },
   data() {
     return {
@@ -29,7 +29,7 @@ export default {
         {
           title: "eliaspourquoi",
           url: "/"
-        },
+        }
       ]
     };
   },
@@ -74,7 +74,12 @@ export default {
   .main {
     grid-area: c;
 
+    overflow: none;
     padding: 0 1rem;
+
+    @media only screen and (orientation: landscape) {
+      overflow: auto;
+    }
   }
 
   .sidebar,
@@ -87,7 +92,6 @@ export default {
     padding-top: 20px;
   }
 
-  .main,
   .sidebar,
   .header {
     overflow: auto;

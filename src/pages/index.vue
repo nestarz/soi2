@@ -44,6 +44,10 @@ export default {
           url: "/tweets"
         },
         {
+          title: "daw",
+          url: "/daw"
+        },
+        {
           title: "projects",
           url: "/"
         },

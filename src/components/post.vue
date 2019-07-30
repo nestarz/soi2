@@ -1,7 +1,9 @@
 <template functional>
   <div class="bookmark" :class="{ container: props.screenshot, equal: props.equal }">
     <div class="container-image" v-if="props.screenshot">
-      <g-image class="image" quality="20" blur="1" width="20" :src="props.screenshot" />
+      <component :is="props.url ? 'a' : 'template'" :href="props.url">
+        <g-image class="image" quality="20" blur="1" width="20" :src="props.screenshot" />
+      </component>
     </div>
     <div class="main">
       <div class="header">
@@ -61,7 +63,7 @@ export default {
     slug: String,
     index: Number,
     logo: String,
-    equal: Boolean,
+    equal: Boolean
   }
 };
 </script>
