@@ -88,8 +88,8 @@ export default {
 <page-query>
 query Ressources($page: Int) {
   tags: allRessources(
-    sortBy: "category", 
-    order: DESC, 
+    sortBy: "id", 
+    order: ASC, 
   ) {
     edges {
       node {
@@ -98,7 +98,7 @@ query Ressources($page: Int) {
     }
   }
   ressources: allRessources(
-    sortBy: "category", 
+    sortBy: "id", 
     order: ASC, 
     perPage: 20, 
     page: $page,
