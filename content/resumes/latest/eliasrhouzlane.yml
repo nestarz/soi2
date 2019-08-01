@@ -108,13 +108,13 @@ records:
     fr: Éducation
     en: Education
   list:
-  # - from: '2019'
-  #   to: '2021'
-  #   title:
-  #     fr: Master Information Design
-  #     en: Master Information Design
-  #   etablishment: Design Academy Eindhoven
-  #   location: Eindhoven, Pays-bas
+  - from: '2019'
+    to: 'present'
+    title:
+      fr: Master Information Design
+      en: Master Information Design
+    etablishment: Design Academy Eindhoven
+    location: Eindhoven, Pays-bas
   - from: '2018'
     title:
       fr: DNMADE Objet(s) et système(s) d'objet(s) céramiques

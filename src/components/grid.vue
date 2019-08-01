@@ -23,6 +23,9 @@
 
   & > /deep/ * {
     min-height: 10vw;
+    display: grid;
+    grid-gap: 1rem;
+    grid-auto-rows: min-content;
   }
 }
 </style>

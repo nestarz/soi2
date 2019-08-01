@@ -44,16 +44,12 @@ export default {
           url: "/tweets"
         },
         {
-          title: "daw",
-          url: "/daw"
-        },
-        {
           title: "projects",
           url: "/"
         },
         {
           title: "resume",
-          url: "/about"
+          url: "/resume/1562619188722"
         }
       ]
     };

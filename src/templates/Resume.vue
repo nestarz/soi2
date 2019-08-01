@@ -22,28 +22,34 @@
         <h2>{{ section.title }}</h2>
         <ul class="block">
           <li class="item block" v-for="(item, index) in section.list" :key="index">
-            <div class="date">
-              <span v-if="item.from">{{ item.from }}</span>
-              <span v-if="item.to">{{ item.to }}</span>
-            </div>
             <h2 v-if="item.title">{{ item.title }}</h2>
             <div v-if="item.etablishment">{{ item.etablishment }}</div>
             <div v-if="item.location">{{ item.location }}</div>
+            <div class="date">
+              <span v-if="item.from">{{ item.from }}</span>
+              <span v-if="item.from && item.to">-</span>
+              <span v-if="item.to">{{ item.to }}</span>
+            </div>
             <div v-if="item.description" class="description">{{ item.description }}</div>
           </li>
         </ul>
       </div>
       <div class="resume description">
         <div class="block">
-          <h1>Description</h1>
           <div>{{ resume.shortBio }}</div>
         </div>
         <grid>
           <ul class="block">
             <h2>Contact</h2>
+            <a :href="`tel:${phoneNumber}`">{{ phoneNumber }}</a>
           </ul>
           <ul class="block">
             <h2>Réseaux</h2>
+            <ul>
+              <li v-for="network in $page.metaData.network" :key="network.url">
+                <a :href="network.url">{{ network.title }}</a>
+              </li>
+            </ul>
           </ul>
         </grid>
       </div>
@@ -76,6 +82,10 @@ export default {
     Grid
   },
   computed: {
+    phoneNumber() {
+      const { code, number } = this.$page.metaData.phone;
+      return `+${code}${number}`;
+    },
     resume() {
       return iterate(this.$page.resume, ["fr", "all"]);
     },
@@ -109,7 +119,7 @@ export default {
   }
 
   .description {
-    font-size: 75%;
+    display: none;
     margin-top: 0.1rem;
   }
 }
@@ -132,6 +142,17 @@ export default {
 
 <page-query>
 query Resume($id: String!) {
+  metaData {
+    siteName
+    phone {
+      code
+      number
+    }
+    network {
+      title
+      url
+    }
+  }
   resume(id: $id) {
     shortBio {
       fr

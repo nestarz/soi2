@@ -9,6 +9,29 @@ const twitter = require('./src/functions/twitter');
 
 function server(api) {
   api.loadSource(async (store) => {
+    store.addMetaData('phone', {
+      code: 33,
+      number: 620406267,
+    });
+    store.addMetaData('network', [
+      {
+        url: 'https://linkedin.com/in/elias-rhouzlane-56070197/',
+        title: 'Linkedin',
+      },
+      {
+        url: 'https://instagram.com/eliaspourquoi',
+        title: 'Instagram',
+      },
+      {
+        url: 'https://github.com/nestarz',
+        title: 'GitHub',
+      },
+      {
+        url: 'https://twitter.com/nestarz/',
+        title: 'Twitter',
+      },
+    ]);
+
     const resumeCollection = store.addContentType('Resume');
     (await glob('content/resumes/**/*.yml')).map((file) => {
       const resource = jsYaml.load(fs.readFileSync(file, 'utf8'));
