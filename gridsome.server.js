@@ -15,10 +15,6 @@ function server(api) {
     });
     store.addMetaData('network', [
       {
-        url: 'https://linkedin.com/in/elias-rhouzlane-56070197/',
-        title: 'Linkedin',
-      },
-      {
         url: 'https://instagram.com/eliaspourquoi',
         title: 'Instagram',
       },
@@ -27,8 +23,8 @@ function server(api) {
         title: 'GitHub',
       },
       {
-        url: 'https://twitter.com/nestarz/',
-        title: 'Twitter',
+        url: 'https://linkedin.com/in/elias-rhouzlane-56070197/',
+        title: 'Linkedin',
       },
     ]);
 

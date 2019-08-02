@@ -1,15 +1,22 @@
 export default [
   {
+    path: "/resume",
+    component: () => import(/* webpackChunkName: "page--src--pages--resume-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/Resume.vue"),
+    meta: {
+      data: true
+    }
+  },
+  {
     path: "/about",
     component: () => import(/* webpackChunkName: "page--src--pages--about-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/about.vue")
   },
   {
-    path: "/cv",
-    component: () => import(/* webpackChunkName: "page--src--pages--cv-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/cv.vue")
-  },
-  {
     path: "/index-1",
     component: () => import(/* webpackChunkName: "page--src--pages--index-1-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/index.1.vue")
+  },
+  {
+    path: "/cv",
+    component: () => import(/* webpackChunkName: "page--src--pages--cv-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/cv.vue")
   },
   {
     name: "home",
@@ -27,13 +34,6 @@ export default [
   {
     path: "/ressources/mindmap",
     component: () => import(/* webpackChunkName: "page--src--pages--ressources--mindmap-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/ressources/mindmap.vue"),
-    meta: {
-      data: true
-    }
-  },
-  {
-    path: "/resume/1562619188722",
-    component: () => import(/* webpackChunkName: "page--src--templates--resume-vue" */ "/home/elirhouzlane/repos/perso/soi/src/templates/Resume.vue"),
     meta: {
       data: true
     }
