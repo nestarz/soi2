@@ -8,8 +8,7 @@
       :class="{ active : selected.has(tag), inactive: count === 0 }"
     >
       <span class="tag">
-        {{ tag }}&nbsp;
-        <span class="count">{{ count }}</span>
+        {{ tag }}&nbsp;<span class="count">{{ count }}</span>
       </span>
     </li>
   </ul>

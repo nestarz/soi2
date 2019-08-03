@@ -36,7 +36,7 @@
       <div class="main">
         <div
           class="description"
-        >{{ props.description.length > 149 ? props.description.replace(/^(.{149}[^\s]*).*/, "$1...") : props.description }}</div>
+        >{{ (props.description && props.description.length > 149) ? `${(props.description.match(RegExp(".{149}\\S*"))||[props.description.substring(0, 149)])[0]}...` : props.description }}</div>
         <div class="tags">
           <!-- <span class="category">{{ `${props.category} ` }}</span> -->
           <span v-for="(tag, index) in props.tags" :key="`${tag}-${index}`">{{ `${tag} ` }}</span>
@@ -74,7 +74,7 @@ export default {
     grid-row-start: span 2;
     display: grid;
     grid-gap: 1rem;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 1fr min-content;
 
     &.equal {
       grid-template-rows: 1fr 1fr;
@@ -92,10 +92,10 @@ export default {
       user-select: none;
 
       /deep/ img {
-        max-height: 33vh;
         object-fit: contain;
         flex: 1;
         width: 100%;
+        max-height: 23rem;
       }
     }
   }

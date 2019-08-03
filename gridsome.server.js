@@ -28,6 +28,14 @@ function server(api) {
       },
     ]);
 
+    const InstagramSavedCollection = store.addContentType('InstagramSaved');
+    (await glob('content/instagram/saved/*.json'))
+      .map(file => JSON.parse(fs.readFileSync(file, 'utf8')))
+      .forEach(instagramSaved => InstagramSavedCollection.addNode({
+        id: instagramSaved.media.id,
+        fields: instagramSaved,
+      }));
+
     const resumeCollection = store.addContentType('Resume');
     (await glob('content/resumes/**/*.yml')).map((file) => {
       const resource = jsYaml.load(fs.readFileSync(file, 'utf8'));

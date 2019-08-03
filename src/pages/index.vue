@@ -48,6 +48,10 @@ export default {
           url: "/"
         },
         {
+          title: "instagram",
+          url: "/instagram"
+        },
+        {
           title: "about",
           url: "/resume"
         }
