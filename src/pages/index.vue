@@ -12,11 +12,11 @@
         </ol>
       </nav>
     </template>
-    <div class="camera">
+    <!-- <div class="camera">
       <webcam @cameras="setCameras" :deviceId="camera" class="video" />
       <p>Eindhoven, Netherlands<br/>
       +33 6 20 40 62 67</p>
-    </div>
+    </div> -->
   </layout>
 </template>
 
@@ -44,16 +44,12 @@ export default {
           url: "/tweets"
         },
         {
-          title: "daw",
-          url: "/daw"
-        },
-        {
           title: "projects",
           url: "/"
         },
         {
-          title: "resume",
-          url: "/about"
+          title: "about",
+          url: "/resume"
         }
       ]
     };

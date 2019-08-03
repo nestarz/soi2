@@ -7,8 +7,9 @@ import VueMasonry from 'vue-masonry-css';
 
 
 import Vuex from 'vuex';
+import VueCytoscape from 'vue-cytoscape';
 import DefaultLayout from '~/layouts/default.vue';
-import VueCytoscape from "vue-cytoscape";
+import App from '~/App';
 
 const langs = {
   fr: {
@@ -31,4 +32,6 @@ export default function (Vue, {
 
   // Set default layout as a global component
   Vue.component('layout', DefaultLayout);
+
+  appOptions.render = h => h(App);
 }
