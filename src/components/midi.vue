@@ -62,9 +62,8 @@ export default {
     });
   },
   beforeDestroy() {
-    this.removeAllListeners();
     this.timers.map(timer => clearInterval(timer));
-    WebMidi.outputs.map(output => output.sendStop());
+    WebMidi.disable();
   },
   methods: {
     removeAllListeners() {
