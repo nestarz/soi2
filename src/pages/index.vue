@@ -36,6 +36,10 @@ export default {
       cameras: null,
       links: [
         {
+          title: "collections",
+          url: "/instagram"
+        },
+        {
           title: "resources",
           url: "/ressources"
         },
@@ -46,10 +50,6 @@ export default {
         {
           title: "projects",
           url: "/"
-        },
-        {
-          title: "instagram",
-          url: "/instagram"
         },
         {
           title: "about",
