@@ -8,6 +8,7 @@ const ig = new IG_API.IgApiClient();
 // You must generate device id's before login.
 // Id's generated based on seed
 // So if you pass the same value as first argument - the same id's are generated every time
+console.log(process.env.IG_USERNAME);
 ig.state.generateDevice(process.env.IG_USERNAME);
 
 (async () => {
@@ -51,7 +52,7 @@ ig.state.generateDevice(process.env.IG_USERNAME);
       }
 
       if (imageUrl) {
-        const image = fs.createWriteStream(`images/${savedPost.media.pk}.png`);
+        const image = fs.createWriteStream(`content/instagram/images/${savedPost.media.pk}.png`);
         http.get(imageUrl, (response) => {
           response.pipe(image);
         });
@@ -90,16 +91,16 @@ ig.state.generateDevice(process.env.IG_USERNAME);
           comment_count: savedPost.media.comment_count,
           like_count: savedPost.media.like_count,
           has_liked: savedPost.media.has_liked,
-          caption: {
+          caption: savedPost.media.caption ? {
             pk: savedPost.media.caption.pk,
             user_id: savedPost.media.caption.user_id,
             media_id: savedPost.media.caption.media_id,
             text: savedPost.media.caption.text,
             created_at: savedPost.media.caption.created_at,
-          },
+          } : null,
         },
       });
-      fs.writeFile(`saved/${savedPost.media.pk}.json`, content, 'utf8', (err) => {
+      fs.writeFile(`content/instagram/saved/${savedPost.media.pk}.json`, content, 'utf8', (err) => {
         // eslint-disable-next-line no-console
         if (err) console.log(err);
       });
