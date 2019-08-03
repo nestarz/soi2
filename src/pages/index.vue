@@ -48,8 +48,8 @@ export default {
           url: "/tweets"
         },
         {
-          title: "projects",
-          url: "/"
+          title: "midi",
+          url: "/midi"
         },
         {
           title: "about",

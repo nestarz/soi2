@@ -12,6 +12,11 @@ export default [
     component: () => import(/* webpackChunkName: "page--src-pages-about-vue" */ "C:\\Users\\elias\\projects\\soi\\src\\pages\\about.vue")
   },
   {
+    name: "home",
+    path: "/",
+    component: () => import(/* webpackChunkName: "page--src-pages-index-vue" */ "C:\\Users\\elias\\projects\\soi\\src\\pages\\index.vue")
+  },
+  {
     path: "/resume",
     component: () => import(/* webpackChunkName: "page--src-pages-resume-vue" */ "C:\\Users\\elias\\projects\\soi\\src\\pages\\Resume.vue"),
     meta: {
@@ -19,9 +24,8 @@ export default [
     }
   },
   {
-    name: "home",
-    path: "/",
-    component: () => import(/* webpackChunkName: "page--src-pages-index-vue" */ "C:\\Users\\elias\\projects\\soi\\src\\pages\\index.vue")
+    path: "/midi",
+    component: () => import(/* webpackChunkName: "page--src-pages-midi-index-vue" */ "C:\\Users\\elias\\projects\\soi\\src\\pages\\midi\\index.vue")
   },
   {
     path: "/ressources/add",
