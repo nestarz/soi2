@@ -1,7 +1,7 @@
 <template>
   <div class="midi-controller-header">
-    <div class="state">{{ message.data }}</div>
-    <div class="information">
+    <div class="state" v-if="message">{{ message.data }}</div>
+    <div class="information" v-if="message">
       <div>{{ message.target.manufacturer }}</div>
       <div>{{ message.target.name }}</div>
     </div>
@@ -17,7 +17,7 @@ export default {
   name: "MidiController",
   data() {
     return {
-      message: {},
+      message: null,
       timers: [],
       backgroundColor: "transparent"
     };
@@ -78,7 +78,7 @@ export default {
       });
     },
     callback(message) {
-      if (message.data && (message.data[0] !== 248 || !this.message.data)) {
+      if (message.data && (message.data[0] !== 248 || !this.message)) {
         this.message = message;
       }
     }
