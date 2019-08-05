@@ -2,14 +2,17 @@
   <div class="bookmark" :class="{ container: props.screenshot, equal: props.equal }">
     <div class="container-image" v-if="props.screenshot">
       <component :is="props.url ? 'a' : 'template'" :href="props.url" class="link">
-        <g-image class="image" :src="props.screenshot" alt=" "/>
+        <picture class="image">
+          <source type="image/webp" :srcset="props.screenshot" />
+          <g-image :src="props.screenshot" alt=" " />
+        </picture>
       </component>
     </div>
     <div class="main">
       <div class="header">
         <div class="head">
           <div class="logo" v-if="props.logo">
-            <g-image class="image" width="20" :src="props.logo" v-if="props.logo" alt=" "/>
+            <g-image class="image" width="20" :src="props.logo" v-if="props.logo" alt=" " />
           </div>
           <div class="title">
             <a :href="props.url">

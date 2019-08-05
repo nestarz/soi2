@@ -46,7 +46,8 @@
     "vue-page-transition": "^0.2.2",
     "vue2vis": "0.0.16",
     "vuex": "^3.1.1",
-    "webmidi": "^2.3.3"
+    "webmidi": "^2.3.3",
+    "webp-hero": "0.0.0-dev.23"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",

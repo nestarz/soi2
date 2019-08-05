@@ -98,7 +98,7 @@ export default {
           };
         })
         .filter(
-          post => !this.filters.length || this.filters.includes(post.media.name)
+          post => !this.filters.length || this.filters.includes(post.name)
         );
     },
     fetchTags() {
