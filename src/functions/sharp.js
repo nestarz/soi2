@@ -4,10 +4,10 @@ const glob = require("globby");
 const sharp = require("sharp");
 
 (async () => {
-  (await glob("static/instagram/original/*.png")).map(image =>
+  (await glob("static/instagram/images/*.webp")).map(image =>
     sharp(image)
       .resize(500)
-      .webp({
+      .jpeg({
         lossless: false,
         quality: 90,
         force: true,
@@ -18,8 +18,8 @@ const sharp = require("sharp");
           "static/instagram/images/", //path.dirname(image),
           path.format({
             root: "/",
-            name: path.basename(image, ".png"),
-            ext: ".webp"
+            name: path.basename(image, ".webp"),
+            ext: ".jpg"
           })
         )
       )

@@ -3,7 +3,7 @@
     <div class="container-image" v-if="props.screenshot">
       <component :is="props.url ? 'a' : 'template'" :href="props.url" class="link">
         <picture class="image">
-          <source type="image/webp" :srcset="props.screenshot" />
+          <source type="image/webp" :srcset="props.screenshot.replace('.jpg', '.webp')" />
           <g-image :src="props.screenshot" alt=" " />
         </picture>
       </component>
