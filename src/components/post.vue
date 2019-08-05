@@ -9,15 +9,7 @@
       <div class="header">
         <div class="head">
           <div class="logo" v-if="props.logo">
-            <g-image
-              class="image"
-              quality="20"
-              blur="1"
-              width="20"
-              :src="props.logo"
-              v-if="props.logo"
-              alt=" "
-            />
+            <g-image class="image" width="20" :src="props.logo" v-if="props.logo" alt=" "/>
           </div>
           <div class="title">
             <a :href="props.url">

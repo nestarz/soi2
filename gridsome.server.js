@@ -3,7 +3,6 @@ const path = require('path');
 const glob = require('globby');
 const jsYaml = require('js-yaml');
 const slugify = require('@sindresorhus/slugify');
-const { imageType } = require('gridsome/lib/graphql/types/image');
 const screenshot = require('./src/functions/screenshot');
 const twitter = require('./src/functions/twitter');
 
@@ -33,35 +32,12 @@ function server(api) {
       .map(file => JSON.parse(fs.readFileSync(file, 'utf8')))
       .forEach(instagramSaved => InstagramSavedCollection.addNode({
         id: instagramSaved.media.id,
-        fields: instagramSaved,
+        fields: {
+          ...instagramSaved,
+          // imagePath: path.join(__dirname, 'static', 'instagram', 'images', instagramSaved.image_name),
+          imagePath: path.join('/', 'instagram', 'images', instagramSaved.media.pk),
+        },
       }));
-    InstagramSavedCollection.addSchemaField('screenshot', () => ({
-      type: imageType.type,
-      args: imageType.args,
-      async resolve(node, args, context) {
-        const value = path.join(__dirname, 'static', 'instagram', 'images', node.image_name);
-        let result;
-        try {
-          result = await context.queue.add(value, args);
-        } catch (err) {
-          return null;
-        }
-
-        if (result.isUrl) {
-          return result.src;
-        }
-
-        return {
-          type: result.type,
-          mimeType: result.mimeType,
-          src: result.src,
-          size: result.size,
-          sizes: result.sizes,
-          srcset: result.srcset,
-          dataUri: result.dataUri,
-        };
-      },
-    }));
 
     const resumeCollection = store.addContentType('Resume');
     (await glob('content/resumes/**/*.yml')).map((file) => {
@@ -114,33 +90,9 @@ function server(api) {
     );
     resources.forEach(resource => collection.addNode({
       id: resource.slug,
-      fields: resource,
-    }));
-    collection.addSchemaField('screenshot', () => ({
-      type: imageType.type,
-      args: imageType.args,
-      async resolve(node, args, context) {
-        const value = path.join(screenshotFolder, `${node.slug}.png`);
-        let result;
-        try {
-          result = await context.queue.add(value, args);
-        } catch (err) {
-          return null;
-        }
-
-        if (result.isUrl) {
-          return result.src;
-        }
-
-        return {
-          type: result.type,
-          mimeType: result.mimeType,
-          src: result.src,
-          size: result.size,
-          sizes: result.sizes,
-          srcset: result.srcset,
-          dataUri: result.dataUri,
-        };
+      fields: {
+        ...resource,
+        screenshot: path.join(screenshotFolder, `${resource.slug}.png`),
       },
     }));
   });

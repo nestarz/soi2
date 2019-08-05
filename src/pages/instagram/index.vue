@@ -94,7 +94,7 @@ export default {
             category: post.media.saved_collection_ids,
             name: post.media.user.username,
             logo: post.media.user.profile_pic_url,
-            screenshot: post.screenshot,
+            screenshot: `${post.imagePath}.webp`,
           };
         })
         .filter(
@@ -141,7 +141,7 @@ query InstagramSaved($page: Int) {
     }
     edges {
       node {
-        screenshot
+        imagePath
         media {
           id
           user {

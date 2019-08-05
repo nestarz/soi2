@@ -1,11 +1,11 @@
 export default [
   {
-    path: "/about",
-    component: () => import(/* webpackChunkName: "page--src-pages-about-vue" */ "C:\\Users\\elias\\projects\\soi\\src\\pages\\about.vue")
+    path: "/cv",
+    component: () => import(/* webpackChunkName: "page--src-pages-cv-vue" */ "C:\\Users\\elias\\projects\\soi\\src\\pages\\cv.vue")
   },
   {
-    path: "/index-1",
-    component: () => import(/* webpackChunkName: "page--src-pages-index-1-vue" */ "C:\\Users\\elias\\projects\\soi\\src\\pages\\index.1.vue")
+    path: "/about",
+    component: () => import(/* webpackChunkName: "page--src-pages-about-vue" */ "C:\\Users\\elias\\projects\\soi\\src\\pages\\about.vue")
   },
   {
     name: "home",
@@ -13,8 +13,8 @@ export default [
     component: () => import(/* webpackChunkName: "page--src-pages-index-vue" */ "C:\\Users\\elias\\projects\\soi\\src\\pages\\index.vue")
   },
   {
-    path: "/cv",
-    component: () => import(/* webpackChunkName: "page--src-pages-cv-vue" */ "C:\\Users\\elias\\projects\\soi\\src\\pages\\cv.vue")
+    path: "/index-1",
+    component: () => import(/* webpackChunkName: "page--src-pages-index-1-vue" */ "C:\\Users\\elias\\projects\\soi\\src\\pages\\index.1.vue")
   },
   {
     path: "/resume",
@@ -39,7 +39,7 @@ export default [
     path: "/ressources/mindmap",
     component: () => import(/* webpackChunkName: "page--src-pages-ressources-mindmap-vue" */ "C:\\Users\\elias\\projects\\soi\\src\\pages\\ressources\\mindmap.vue"),
     meta: {
-      data: [1,"531f0c2c"]
+      data: [1,"8ea3dea6"]
     }
   },
   {
