@@ -1,7 +1,7 @@
 <template functional>
   <div>
     <div class="grid">
-      <slot />
+      <slot/>
     </div>
   </div>
 </template>
@@ -9,7 +9,7 @@
 <style lang="scss" scoped>
 .grid {
   display: block;
-  margin-bottom: 40px;
+  margin-bottom: 1rem;
 
   @media all and (min-width: 600px) {
     display: grid;

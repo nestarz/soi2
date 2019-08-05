@@ -9,11 +9,16 @@
         </ol>
       </nav>
     </header>
+    <input id="toggle" class="toggle" type="checkbox">
+    <label for="toggle">
+      <span class="close">?</span>
+      <span class="open">!</span>
+    </label>
     <nav class="sidebar" ref="sidebar">
-      <slot name="sidebar" />
+      <slot name="sidebar"/>
     </nav>
     <main class="main" ref="main" v-on:scroll="event => handleScroll(event, 'sidebar')">
-      <slot />
+      <slot/>
     </main>
   </div>
 </template>
@@ -43,15 +48,14 @@ export default {
 
 <style lang="scss" scoped>
 .layout {
-  display: block;
+  display: grid;
   grid-template-areas:
-    "b b b"
+    "b b toggle"
     "a a a"
+    "c c c"
     "c c c";
   grid-template-columns: 0.2fr 0.8fr;
   grid-template-rows: min-content;
-  grid-gap: 1rem;
-  height: 100vh;
 
   @media only screen and (orientation: landscape) {
     display: grid;
@@ -60,11 +64,75 @@ export default {
       "a c c";
     grid-template-columns: 11rem 1fr;
     grid-template-rows: auto 1fr;
+    height: 100vh;
+  }
+
+  .toggle {
+    display: none;
+
+    + label {
+      display: block;
+      grid-area: toggle;
+      padding: 1rem 1rem 0 0;
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+
+      @media only screen and (orientation: landscape) {
+        display: none;
+      }
+
+      span {
+        background: #0d0d0d;
+        border-radius: 50%;
+        width: 1rem;
+        display: flex;
+        justify-content: center;
+        height: 1rem;
+        align-items: center;
+        color: white;
+        padding-top: 0.1rem;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .open {
+        display: none;
+      }
+      .close {
+        display: flex;
+      }
+    }
+
+    &:checked {
+      & ~ .sidebar {
+        display: block;
+      }
+
+      + label {
+        .open {
+          display: flex;
+        }
+        .close {
+          display: none;
+        }
+      }
+    }
   }
 
   .sidebar {
     scrollbar-width: none;
     grid-area: a;
+    padding: 0 1rem 0rem 1rem;
+    margin-bottom: 1rem;
+    display: none;
+    max-height: 50vh;
+    overflow: hidden;
+
+    @media only screen and (orientation: landscape) {
+      max-height: none;
+      display: block;
+    }
 
     &::-webkit-scrollbar {
       display: none;
@@ -78,18 +146,18 @@ export default {
     padding: 0 1rem;
 
     @media only screen and (orientation: landscape) {
+      padding-top: 1rem;
       overflow: auto;
     }
   }
 
   .sidebar,
   .header {
-    padding-left: 20px;
+    padding-left: 1rem;
   }
 
-  .main,
   .header {
-    padding-top: 20px;
+    padding-top: 1rem;
   }
 
   .sidebar,
@@ -107,6 +175,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     z-index: 99;
+    padding: 1rem;
 
     nav {
       ol {

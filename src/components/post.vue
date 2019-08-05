@@ -1,8 +1,8 @@
 <template functional>
   <div class="bookmark" :class="{ container: props.screenshot, equal: props.equal }">
     <div class="container-image" v-if="props.screenshot">
-      <component :is="props.url ? 'a' : 'template'" :href="props.url">
-        <g-image class="image" :src="props.screenshot" />
+      <component :is="props.url ? 'a' : 'template'" :href="props.url" class="link">
+        <g-image class="image" :src="props.screenshot" alt=" "/>
       </component>
     </div>
     <div class="main">
@@ -16,6 +16,7 @@
               width="20"
               :src="props.logo"
               v-if="props.logo"
+              alt=" "
             />
           </div>
           <div class="title">
@@ -33,7 +34,7 @@
           </div>
         </div>
       </div>
-      <div class="main">
+      <div class="information">
         <div
           class="description"
         >{{ (props.description && props.description.length > 149) ? `${(props.description.match(RegExp(".{149}\\S*"))||[props.description.substring(0, 149)])[0]}...` : props.description }}</div>
@@ -72,24 +73,20 @@ export default {
 .bookmark {
   &.container {
     grid-row-start: span 2;
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-rows: 1fr min-content;
+    display: block;
 
     &.equal {
-      grid-template-rows: 1fr 1fr;
-
       .container-image {
         /deep/ img {
-          max-height: 100%;
+          max-height: 18rem;
         }
       }
     }
 
     .container-image {
-      height: 100%;
       position: relative;
       user-select: none;
+      margin-bottom: 1rem;
 
       /deep/ img {
         object-fit: contain;
@@ -97,11 +94,17 @@ export default {
         width: 100%;
         max-height: 23rem;
       }
+
+      a {
+        display: block;
+        line-height: 0;
+      }
     }
   }
 
   .main {
     line-height: 1.18em;
+    /* display: none; */
 
     .description {
       word-break: break-word;
@@ -119,12 +122,12 @@ export default {
       display: flex;
       align-items: center;
       line-height: 1;
-      margin-bottom: 5px;
+      margin-bottom: 0.5rem;
 
       .logo {
-        height: 30px;
-        width: 30px;
-        margin-right: 5px;
+        height: 1.5rem;
+        width: 1.5rem;
+        margin-right: 0.5rem;
       }
 
       .title {
@@ -143,5 +146,18 @@ export default {
       }
     }
   }
+
+  /* position: relative;
+  .main {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 1rem;
+    background: white;
+    .information {
+    }
+  } */
 }
 </style>

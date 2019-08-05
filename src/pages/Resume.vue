@@ -117,6 +117,12 @@ export default {
 }
 
 .resume {
+  margin-bottom: 1rem;
+
+  &:last-child {
+    margin: 0;
+  }
+
   h1,
   h2 {
     font-weight: 600;
@@ -131,6 +137,10 @@ export default {
   .description {
     display: none;
     margin-top: 0.1rem;
+  }
+
+  > .block:last-child {
+    margin: 0;
   }
 }
 
