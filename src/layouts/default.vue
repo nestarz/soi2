@@ -178,7 +178,6 @@ export default {
     padding: 1rem;
     position: sticky;
     top: 0;
-    mix-blend-mode: screen;
 
     nav {
       ol {
@@ -191,8 +190,6 @@ export default {
 
           a.active {
             font-weight: 600;
-            text-shadow: 0 15px 0px #fff, 0 -27px 0px #fff, 0 0 0px #fff,
-              0 25px 0px #fff, 0 9px 0px #fff, 0 -8px 0px #fff, 0 -18px 0px #fff;
           }
         }
       }
