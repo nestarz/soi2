@@ -1,5 +1,6 @@
 <template>
   <div class="midi-controller-header">
+    <div class="error" v-if="error">{{ error }}</div>
     <div class="state" v-if="message">{{ message.data }}</div>
     <div class="information" v-if="message">
       <div>{{ message.target.manufacturer }}</div>
@@ -17,15 +18,17 @@ export default {
   name: "MidiController",
   data() {
     return {
+      error: null,
       message: null,
       timers: [],
-      backgroundColor: "transparent"
+      backgroundColor: "transparent",
     };
   },
   mounted() {
     WebMidi.enable(err => {
       if (err) {
         console.error(err);
+        this.error = err;
 
         return;
       }
