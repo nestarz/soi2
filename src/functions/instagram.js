@@ -1,8 +1,7 @@
-const IG_API = require("instagram-private-api");
-const fs = require("fs");
-const http = require("https");
-const sharp = require("sharp");
-require("dotenv").config();
+const IG_API = require('instagram-private-api');
+const fs = require('fs');
+const http = require('https');
+require('dotenv').config();
 
 const ig = new IG_API.IgApiClient();
 
@@ -14,7 +13,10 @@ ig.state.generateDevice(process.env.IG_USERNAME);
 
 (async () => {
   // login
-  await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD);
+  await ig.account.login(
+    process.env.IG_USERNAME,
+    process.env.IG_PASSWORD,
+  );
 
   // The same as preLoginFlow()
   // Optionally wrap it to process.nextTick so we dont need to wait ending of this bunch of requests
@@ -25,40 +27,36 @@ ig.state.generateDevice(process.env.IG_USERNAME);
 
   const mySavedPosts = [];
   let count = 0;
-  const MAX_ITER = 2;
+  const MAX_ITER = 1000;
   while (savedFeed.moreAvailable !== false && count < MAX_ITER) {
     // eslint-disable-next-line no-await-in-loop
     const items = await savedFeed.items();
     mySavedPosts.push(...items);
     // eslint-disable-next-line no-console
-    console.log(mySavedPosts.length, savedFeed.moreAvailable, count);
-    count += 1;
+    console.log(items.length, savedFeed.moreAvailable);
+    count += count;
   }
-  console.log(Object.keys(mySavedPosts[0].media))
   // grab all image urls from a batch of saved posts
   mySavedPosts
     // fetch images from image urls and save them to disk
-    .filter(
-      savedPost =>
-        !fs.existsSync(`static/instagram/images/${savedPost.media.pk}.webp`)
-    )
-    .map(savedPost => {
+    .map(savedPost => (typeof savedPost.media === 'object' ? savedPost.media : { media: savedPost }))
+    .filter(savedPost => !fs.existsSync(`static/instagram/images/${savedPost.media.pk}.png`)
+      || !fs.existsSync(`content/instagram/saved/${savedPost.media.pk}.json`))
+    .map((savedPost) => {
       let imageUrl;
 
       if (savedPost.media.carousel_media) {
         imageUrl = savedPost.media.carousel_media[0].url;
       } else if (
-        savedPost.media.image_versions2 &&
-        savedPost.media.image_versions2.candidates
+        savedPost.media.image_versions2
+        && savedPost.media.image_versions2.candidates
       ) {
         imageUrl = savedPost.media.image_versions2.candidates[0].url;
       }
 
       if (imageUrl) {
-        const image = fs.createWriteStream(
-          `static/instagram/images/${savedPost.media.pk}.png`
-        );
-        http.get(imageUrl, response => {
+        const image = fs.createWriteStream(`static/instagram/images/${savedPost.media.pk}.png`);
+        http.get(imageUrl, (response) => {
           response.pipe(image);
         });
 
@@ -68,13 +66,7 @@ ig.state.generateDevice(process.env.IG_USERNAME);
       return null;
     })
     .filter(savedPost => savedPost)
-    .map(savedPost =>
-      sharp(`static/instagram/images/${savedPost.media.pk}.png`)
-        .resize(500)
-        .webp({ quality: 80 })
-        .toFile(`static/instagram/images/${savedPost.media.pk}.png`)
-    )
-    .map(async savedPost => {
+    .map(async (savedPost) => {
       const content = JSON.stringify({
         image_name: `${savedPost.media.pk}.png`,
         media: {
@@ -90,31 +82,24 @@ ig.state.generateDevice(process.env.IG_USERNAME);
             username: savedPost.media.user.username,
             is_private: savedPost.media.user.is_private,
             profile_pic_url: savedPost.media.user.profile_pic_url,
-            profile_pic_id: savedPost.media.user.profile_pic_id
+            profile_pic_id: savedPost.media.user.profile_pic_id,
           },
           next_max_id: savedPost.media.next_max_id,
           comment_count: savedPost.media.comment_count,
           like_count: savedPost.media.like_count,
           has_liked: savedPost.media.has_liked,
-          caption: savedPost.media.caption
-            ? {
-                pk: savedPost.media.caption.pk,
-                user_id: savedPost.media.caption.user_id,
-                media_id: savedPost.media.caption.media_id,
-                text: savedPost.media.caption.text,
-                created_at: savedPost.media.caption.created_at
-              }
-            : null
-        }
+          caption: savedPost.media.caption ? {
+            pk: savedPost.media.caption.pk,
+            user_id: savedPost.media.caption.user_id,
+            media_id: savedPost.media.caption.media_id,
+            text: savedPost.media.caption.text,
+            created_at: savedPost.media.caption.created_at,
+          } : null,
+        },
       });
-      fs.writeFile(
-        `content/instagram/saved/${savedPost.media.pk}.json`,
-        content,
-        "utf8",
-        err => {
-          // eslint-disable-next-line no-console
-          if (err) console.log(err);
-        }
-      );
+      fs.writeFile(`content/instagram/saved/${savedPost.media.pk}.json`, content, 'utf8', (err) => {
+        // eslint-disable-next-line no-console
+        if (err) console.log(err);
+      });
     });
 })();
