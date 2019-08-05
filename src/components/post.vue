@@ -2,7 +2,7 @@
   <div class="bookmark" :class="{ container: props.screenshot, equal: props.equal }">
     <div class="container-image" v-if="props.screenshot">
       <component :is="props.url ? 'a' : 'template'" :href="props.url">
-        <g-image class="image" quality="20" blur="1" width="20" :src="props.screenshot" />
+        <g-image class="image" :src="props.screenshot" />
       </component>
     </div>
     <div class="main">

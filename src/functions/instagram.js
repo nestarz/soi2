@@ -39,6 +39,9 @@ ig.state.generateDevice(process.env.IG_USERNAME);
   // grab all image urls from a batch of saved posts
   mySavedPosts
     // fetch images from image urls and save them to disk
+    .map(savedPost => (typeof savedPost.media === 'object' ? savedPost.media : { media: savedPost }))
+    .filter(savedPost => !fs.existsSync(`static/instagram/images/${savedPost.media.pk}.png`)
+      || !fs.existsSync(`content/instagram/saved/${savedPost.media.pk}.json`))
     .map((savedPost) => {
       let imageUrl;
 
@@ -52,7 +55,7 @@ ig.state.generateDevice(process.env.IG_USERNAME);
       }
 
       if (imageUrl) {
-        const image = fs.createWriteStream(`content/instagram/images/${savedPost.media.pk}.png`);
+        const image = fs.createWriteStream(`static/instagram/images/${savedPost.media.pk}.png`);
         http.get(imageUrl, (response) => {
           response.pipe(image);
         });
@@ -74,12 +77,6 @@ ig.state.generateDevice(process.env.IG_USERNAME);
           media_type: savedPost.media.media_type,
           original_width: savedPost.media.original_width,
           original_height: savedPost.media.original_height,
-          carousel_media: savedPost.media.carousel_media,
-          image_versions2: {
-            candidates:
-              savedPost.media.image_versions2
-              && savedPost.media.image_versions2.candidates.map(item => item.url),
-          },
           user: {
             pk: savedPost.media.user.pk,
             username: savedPost.media.user.username,

@@ -141,7 +141,7 @@ query InstagramSaved($page: Int) {
     }
     edges {
       node {
-        screenshot
+        screenshot (width: 520, quality: 80, blur: 20)
         media {
           id
           user {

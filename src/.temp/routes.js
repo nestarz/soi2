@@ -55,15 +55,15 @@ export default [
     }
   },
   {
-    path: "/ressources/:page(\\d+)?",
-    component: () => import(/* webpackChunkName: "page--src--pages--ressources--index-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/ressources/index.vue"),
+    path: "/tweets/:page(\\d+)?",
+    component: () => import(/* webpackChunkName: "page--src--pages--tweets--index-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/tweets/index.vue"),
     meta: {
       data: true
     }
   },
   {
-    path: "/tweets/:page(\\d+)?",
-    component: () => import(/* webpackChunkName: "page--src--pages--tweets--index-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/tweets/index.vue"),
+    path: "/ressources/:page(\\d+)?",
+    component: () => import(/* webpackChunkName: "page--src--pages--ressources--index-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/ressources/index.vue"),
     meta: {
       data: true
     }
