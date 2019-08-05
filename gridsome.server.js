@@ -35,6 +35,33 @@ function server(api) {
         id: instagramSaved.media.id,
         fields: instagramSaved,
       }));
+    InstagramSavedCollection.addSchemaField('screenshot', () => ({
+      type: imageType.type,
+      args: imageType.args,
+      async resolve(node, args, context) {
+        const value = path.join(__dirname, 'static', 'instagram', 'images', node.image_name);
+        let result;
+        try {
+          result = await context.queue.add(value, args);
+        } catch (err) {
+          return null;
+        }
+
+        if (result.isUrl) {
+          return result.src;
+        }
+
+        return {
+          type: result.type,
+          mimeType: result.mimeType,
+          src: result.src,
+          size: result.size,
+          sizes: result.sizes,
+          srcset: result.srcset,
+          dataUri: result.dataUri,
+        };
+      },
+    }));
 
     const resumeCollection = store.addContentType('Resume');
     (await glob('content/resumes/**/*.yml')).map((file) => {

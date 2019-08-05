@@ -1,14 +1,14 @@
 export default [
   {
-    path: "/about",
-    component: () => import(/* webpackChunkName: "page--src--pages--about-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/about.vue")
-  },
-  {
     path: "/resume",
     component: () => import(/* webpackChunkName: "page--src--pages--resume-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/Resume.vue"),
     meta: {
       data: true
     }
+  },
+  {
+    path: "/about",
+    component: () => import(/* webpackChunkName: "page--src--pages--about-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/about.vue")
   },
   {
     path: "/cv",
@@ -24,12 +24,12 @@ export default [
     component: () => import(/* webpackChunkName: "page--src--pages--index-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/index.vue")
   },
   {
-    path: "/ressources/add",
-    component: () => import(/* webpackChunkName: "page--src--pages--ressources--add-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/ressources/add.vue")
-  },
-  {
     path: "/midi",
     component: () => import(/* webpackChunkName: "page--src--pages--midi--index-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/midi/index.vue")
+  },
+  {
+    path: "/ressources/add",
+    component: () => import(/* webpackChunkName: "page--src--pages--ressources--add-vue" */ "/home/elirhouzlane/repos/perso/soi/src/pages/ressources/add.vue")
   },
   {
     path: "/ressources/ceramics",

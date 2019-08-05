@@ -94,12 +94,7 @@ export default {
             category: post.media.saved_collection_ids,
             name: post.media.user.username,
             logo: post.media.user.profile_pic_url,
-            screenshot:
-              (post.media.image_versions2 && post.media.image_versions2.candidates)
-                ? post.media.image_versions2.candidates[0]
-                : post.media.carousel_media
-                ? post.media.carousel_media[0].url
-                : null
+            screenshot: post.screenshot,
           };
         })
         .filter(
@@ -146,6 +141,7 @@ query InstagramSaved($page: Int) {
     }
     edges {
       node {
+        screenshot
         media {
           id
           user {
