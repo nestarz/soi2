@@ -1,4 +1,4 @@
-const MAX_ITER = 1;
+const MAX_ITER = 1000;
 
 const fetch = async (ig) => {
   const feed = ig.feed.saved();
