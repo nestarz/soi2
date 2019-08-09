@@ -1,14 +1,14 @@
 export default [
   {
+    path: "/about",
+    component: () => import(/* webpackChunkName: "page--src--pages--about-vue" */ "/Users/elias/projects/soi/src/pages/about.vue")
+  },
+  {
     path: "/resume",
     component: () => import(/* webpackChunkName: "page--src--pages--resume-vue" */ "/Users/elias/projects/soi/src/pages/Resume.vue"),
     meta: {
       data: true
     }
-  },
-  {
-    path: "/about",
-    component: () => import(/* webpackChunkName: "page--src--pages--about-vue" */ "/Users/elias/projects/soi/src/pages/about.vue")
   },
   {
     path: "/cv",

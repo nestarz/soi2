@@ -94,7 +94,7 @@ export default {
             category: post.media.saved_collection_ids,
             name: post.media.user.username,
             logo: post.media.user.profile_pic_url,
-            screenshot: `${post.imagePath}.jpg`, // TODO: Redo process
+            screenshot: `images/${post.media.pk}.jpg`, // TODO: Redo process
           };
         })
         .filter(
@@ -144,6 +144,7 @@ query InstagramSaved($page: Int) {
         imagePath
         media {
           id
+          pk
           user {
             username
             profile_pic_url

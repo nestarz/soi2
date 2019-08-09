@@ -2,13 +2,7 @@
   <div class="bookmark" :class="{ container: props.screenshot, equal: props.equal }">
     <div class="container-image" v-if="props.screenshot">
       <component :is="props.url ? 'a' : 'template'" :href="props.url" class="link">
-        <picture class="image">
-          <source
-            type="image/webp"
-            :srcset="typeof props.screenshot.replace !== 'undefined' ? props.screenshot.replace('.jpg', '.webp'): props.screenshot.replace"
-          />
-          <g-image :src="props.screenshot" alt=" " />
-        </picture>
+        <g-image :src="props.screenshot" alt=" " />
       </component>
     </div>
     <div class="main">
