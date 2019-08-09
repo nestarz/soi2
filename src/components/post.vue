@@ -6,34 +6,30 @@
       </component>
     </div>
     <div class="main">
-      <div class="header">
-        <div class="head">
-          <div class="logo" v-if="props.logo">
-            <g-image class="image" width="20" :src="props.logo" v-if="props.logo" alt=" " />
-          </div>
-          <div class="title">
-            <a :href="props.url">
-              <span class="name" v-if="props.name">{{ props.name }}</span>
-              <span class="alias" v-else-if="props.alias">@{{ props.alias }}</span>
-            </a>
-            <div class="location" v-if="props.alias || props.location">
-              <span class="alias" v-if="props.alias">@{{ props.alias }}</span>
-              <span
-                v-if="props.location"
-              >{{ typeof props.location === 'object' ? `${props.location.city}${props.location.country && props.location.city ? ", " : ""}${props.location.country}` : props.location }}</span>
-              <div v-for="author in props.authors" :key="author">{{ author }}</div>
-            </div>
+      <div class="header head">
+        <div class="logo" v-if="props.logo">
+          <g-image class="image" width="20" :src="props.logo" v-if="props.logo" alt=" " />
+        </div>
+        <div class="title">
+          <a :href="props.url">
+            <span class="name" v-if="props.name">{{ props.name }}</span>
+            <span class="alias" v-else-if="props.alias">@{{ props.alias }}</span>
+          </a>
+          <div class="location" v-if="props.alias || props.location">
+            <span class="alias" v-if="props.alias">@{{ props.alias }}</span>
+            <span
+              v-if="props.location"
+            >{{ typeof props.location === 'object' ? `${props.location.city}${props.location.country && props.location.city ? ", " : ""}${props.location.country}` : props.location }}</span>
+            <div v-for="author in props.authors" :key="author">{{ author }}</div>
           </div>
         </div>
       </div>
-      <div class="information">
-        <div
-          class="description"
-        >{{ (props.description && props.description.length > 149) ? `${(props.description.match(RegExp(".{149}\\S*"))||[props.description.substring(0, 149)])[0]}...` : props.description }}</div>
-        <div class="tags">
-          <!-- <span class="category">{{ `${props.category} ` }}</span> -->
-          <span v-for="(tag, index) in props.tags" :key="`${tag}-${index}`">{{ `${tag} ` }}</span>
-        </div>
+      <div
+        class="description"
+      >{{ (props.description && props.description.length > 149) ? `${(props.description.match(RegExp(".{149}\\S*"))||[props.description.substring(0, 149)])[0]}...` : props.description }}</div>
+      <div class="tags">
+        <!-- <span class="category">{{ `${props.category} ` }}</span> -->
+        <span v-for="(tag, index) in props.tags" :key="`${tag}-${index}`">{{ `${tag} ` }}</span>
       </div>
     </div>
   </div>

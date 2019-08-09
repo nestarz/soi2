@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <div class="posts grid">
-      <resource-post
-        class="post"
-        :equal="equal"
-        v-for="(post, index) in posts"
-        :key="post.id || `post-${index}`"
-        v-bind="post"
-        @click="$emit('select', post)"
-      />
-    </div>
+  <div class="posts grid">
+    <resource-post
+      class="post"
+      :equal="equal"
+      v-for="(post, index) in posts"
+      :key="post.id || `post-${index}`"
+      v-bind="post"
+      @click="$emit('select', post)"
+    />
   </div>
 </template>
 

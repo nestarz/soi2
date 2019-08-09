@@ -1,14 +1,12 @@
 <template>
   <layout>
-    <template slot="sidebar" >
+    <template slot="sidebar">
       <tags :tags="tags" @select="filter" />
     </template>
-    <div>
-      <posts :posts="search || posts" @select="highlight" :equal="false" />
-      <ClientOnly>
-        <infinite-loading @infinite="infiniteHandler" v-if="$page"></infinite-loading>
-      </ClientOnly>
-    </div>
+    <posts :posts="search || posts" @select="highlight" :equal="false" />
+    <ClientOnly>
+      <infinite-loading @infinite="infiniteHandler" v-if="$page"></infinite-loading>
+    </ClientOnly>
   </layout>
 </template>
 
@@ -19,15 +17,16 @@ import Search from "~/components/search.vue";
 import Layout from "~/layouts/default.vue";
 
 function getInstagramUrlFromMediaId(media_id) {
-    media_id = parseInt(media_id.substring(0, media_id.indexOf('_')));
-    var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
-    var shortenedId = '';
-    while (media_id > 0) {
-        var remainder = modulo(media_id % 64);
-        media_id = (media_id - remainder) / 64;
-        shortenedId = alphabet.charAt(remainder) + shortenedId;
-    }
-    return 'https://www.instagram.com/p/' + shortenedId + '/';
+  media_id = parseInt(media_id.substring(0, media_id.indexOf("_")));
+  var alphabet =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+  var shortenedId = "";
+  while (media_id > 0) {
+    var remainder = modulo(media_id % 64);
+    media_id = (media_id - remainder) / 64;
+    shortenedId = alphabet.charAt(remainder) + shortenedId;
+  }
+  return "https://www.instagram.com/p/" + shortenedId + "/";
 }
 export default {
   components: {
@@ -35,7 +34,7 @@ export default {
     Tags,
     Search,
     InfiniteLoading: () => import("vue-infinite-loading"),
-    Layout,
+    Layout
   },
   data() {
     return {
@@ -94,7 +93,7 @@ export default {
             category: post.media.saved_collection_ids,
             name: post.media.user.username,
             logo: post.media.user.profile_pic_url,
-            screenshot: `/instagram/images/${post.media.pk}.jpg`, // TODO: Redo process
+            screenshot: `/instagram/images/${post.media.pk}.jpg` // TODO: Redo process
           };
         })
         .filter(
