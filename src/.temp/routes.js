@@ -4,15 +4,15 @@ export default [
     component: () => import(/* webpackChunkName: "page--src--pages--about-vue" */ "/Users/elias/projects/soi/src/pages/about.vue")
   },
   {
+    path: "/cv",
+    component: () => import(/* webpackChunkName: "page--src--pages--cv-vue" */ "/Users/elias/projects/soi/src/pages/cv.vue")
+  },
+  {
     path: "/resume",
     component: () => import(/* webpackChunkName: "page--src--pages--resume-vue" */ "/Users/elias/projects/soi/src/pages/Resume.vue"),
     meta: {
       data: true
     }
-  },
-  {
-    path: "/cv",
-    component: () => import(/* webpackChunkName: "page--src--pages--cv-vue" */ "/Users/elias/projects/soi/src/pages/cv.vue")
   },
   {
     path: "/index-1",

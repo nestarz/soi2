@@ -94,7 +94,7 @@ export default {
             category: post.media.saved_collection_ids,
             name: post.media.user.username,
             logo: post.media.user.profile_pic_url,
-            screenshot: `images/${post.media.pk}.jpg`, // TODO: Redo process
+            screenshot: `/instagram/images/${post.media.pk}.jpg`, // TODO: Redo process
           };
         })
         .filter(
