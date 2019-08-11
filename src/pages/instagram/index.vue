@@ -115,7 +115,7 @@ export default {
 <page-query>
 query InstagramSaved($page: Int) {
   tags: allInstagramSaved(
-    sortBy: "id", 
+    sortBy: "media.taken_at", 
     order: DESC, 
   ) {
     edges {
@@ -129,7 +129,7 @@ query InstagramSaved($page: Int) {
     }
   }
   saved: allInstagramSaved(
-    sortBy: "id", 
+    sortBy: "media.taken_at", 
     order: DESC, 
     perPage: 20, 
     page: $page,

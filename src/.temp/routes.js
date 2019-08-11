@@ -4,10 +4,6 @@ export default [
     component: () => import(/* webpackChunkName: "page--src--pages--about-vue" */ "/Users/elias/projects/soi/src/pages/about.vue")
   },
   {
-    path: "/cv",
-    component: () => import(/* webpackChunkName: "page--src--pages--cv-vue" */ "/Users/elias/projects/soi/src/pages/cv.vue")
-  },
-  {
     path: "/resume",
     component: () => import(/* webpackChunkName: "page--src--pages--resume-vue" */ "/Users/elias/projects/soi/src/pages/Resume.vue"),
     meta: {
@@ -15,13 +11,17 @@ export default [
     }
   },
   {
-    path: "/index-1",
-    component: () => import(/* webpackChunkName: "page--src--pages--index-1-vue" */ "/Users/elias/projects/soi/src/pages/index.1.vue")
+    path: "/cv",
+    component: () => import(/* webpackChunkName: "page--src--pages--cv-vue" */ "/Users/elias/projects/soi/src/pages/cv.vue")
   },
   {
     name: "home",
     path: "/",
     component: () => import(/* webpackChunkName: "page--src--pages--index-vue" */ "/Users/elias/projects/soi/src/pages/index.vue")
+  },
+  {
+    path: "/index-1",
+    component: () => import(/* webpackChunkName: "page--src--pages--index-1-vue" */ "/Users/elias/projects/soi/src/pages/index.1.vue")
   },
   {
     path: "/midi",
