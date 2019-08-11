@@ -2,7 +2,7 @@
   <div class="bookmark" :class="{ container: props.screenshot, equal: props.equal }">
     <div class="container-image" v-if="props.screenshot">
       <component :is="props.url ? 'a' : 'template'" :href="props.url" class="link">
-        <g-image :src="props.screenshot" alt=" " />
+        <g-image :src="props.screenshot" :alt="props.id" />
       </component>
     </div>
     <div class="main">
@@ -39,6 +39,7 @@
 export default {
   functional: true,
   props: {
+    id: [String, Number],
     full: Boolean,
     category: String,
     name: String,

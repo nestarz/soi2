@@ -87,7 +87,7 @@ export default {
       this.posts = this.$page.saved.edges
         .map(({ node: post }) => {
           return {
-            id: post.media.id,
+            id: post.media.pk,
             url: `https://www.instagram.com/${post.media.user.username}/`,
             description: post.media.caption && post.media.caption.text,
             category: post.media.saved_collection_ids,
@@ -142,7 +142,6 @@ query InstagramSaved($page: Int) {
       node {
         imagePath
         media {
-          id
           pk
           user {
             username
